@@ -1,0 +1,103 @@
+% =============================================================================
+%  example.tex — Exemplo mínimo de 3 slides
+%  Template Beamer UFAM/IComp/PPGI
+%  Compile: pdflatex example.tex
+% =============================================================================
+\documentclass[aspectratio=169, 10pt, brazil]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{beamerthemeUFAM}
+\usepackage{booktabs}
+\usepackage{colortbl}
+
+\title{Template Beamer UFAM/IComp/PPGI}
+\subtitle{Exemplo de Apresentação Acadêmica}
+\author{Miguel Vanderlei de Oliveira}
+\institute{%
+  Programa de Pós-Graduação em Informática — PPGI\\
+  Instituto de Computação — IComp \textbullet\
+  Universidade Federal do Amazonas — UFAM}
+\date{Manaus, Julho de 2026}
+
+\begin{document}
+
+% ── Slide 1: Capa ────────────────────────────────────────────────────────────
+\begin{frame}[noframenumbering, plain]
+  \titlepage
+\end{frame}
+
+% ── Slide 2: Conteúdo ────────────────────────────────────────────────────────
+\begin{frame}{Elementos do Template}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      \textbf{Blocos disponíveis:}
+      \begin{block}{Bloco padrão}
+        Informação neutra ou definição.
+      \end{block}
+      \vspace{0.4em}
+      \begin{exampleblock}{Bloco de exemplo}
+        Resultado positivo ou destaque.
+      \end{exampleblock}
+      \vspace{0.4em}
+      \begin{alertblock}{Bloco de alerta}
+        Limitação ou ponto de atenção.
+      \end{alertblock}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \textbf{Paleta oficial MIV-UFAM-2020:}
+      \begin{itemize}
+        \item \hgreen{Verde} \texttt{\#00A551} — primário
+        \item \hnavy{Azul navy} \texttt{\#0D3049} — cabeçalhos
+        \item \textcolor{ufamTeal}{\textbf{Teal}} \texttt{\#176073} — separadores
+        \item \hred{Vermelho} \texttt{\#EC1C24} — alertas
+      \end{itemize}
+      \vspace{0.5em}
+      {\small
+      \begin{tabular}{@{}lc@{}}
+        \toprule
+        {\color{ufamNavy}\textbf{Método}} &
+        {\color{ufamNavy}\textbf{Acc.\ (\%)}} \\
+        \midrule
+        Baseline & 87{,}8 \\
+        \rowcolor{ufamGreenLight}
+        \textbf{Proposta} & \textbf{92{,}8} \\
+        \bottomrule
+      \end{tabular}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── Slide 3: Encerramento ─────────────────────────────────────────────────────
+\begin{frame}[noframenumbering, plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[ufamNavy]
+      (current page.south west) rectangle (current page.north east);
+    \fill[ufamGreen]
+      (current page.north west)
+      rectangle ([yshift=-0.09\paperheight]current page.north east);
+    \fill[ufamTeal]
+      ([yshift=-0.09\paperheight]current page.north west)
+      rectangle ([yshift=-0.105\paperheight]current page.north east);
+    \fill[ufamGreen]
+      (current page.south west)
+      rectangle ([yshift=0.045\paperheight]current page.south east);
+    \fill[ufamNavyLight, opacity=0.35]
+      (current page.south east)
+      -- ([xshift=-0.45\paperwidth]current page.south east)
+      -- (current page.south east |- current page.center)
+      -- cycle;
+    \node[font=\LARGE\bfseries, text=ufamWhite]
+      at (current page.center) {Obrigado!};
+    \node[font=\normalsize, text=ufamGreenLight,
+          below=0.5cm of current page.center]
+      {Dúvidas e discussões};
+    \node[font=\small, text=ufamMidGray,
+          anchor=south, yshift=0.12\paperheight]
+      at (current page.south)
+      {\insertauthor\ \textbullet\ IComp/PPGI/UFAM};
+  \end{tikzpicture}
+\end{frame}
+
+\end{document}
