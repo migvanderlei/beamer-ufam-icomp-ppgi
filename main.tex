@@ -1,0 +1,404 @@
+% =============================================================================
+%  main.tex — Apresentação UFAM/IComp/PPGI
+%  Use: pdflatex main.tex (2x) no Overleaf ou localmente
+%  Logos: baixe logo_ufam.png e logo_icomp.png e coloque na mesma pasta
+% =============================================================================
+\documentclass[aspectratio=169, 10pt, brazil]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{beamerthemeUFAM}   % <- arquivo beamerthemeUFAM.sty na mesma pasta
+\usepackage{booktabs, multirow, colortbl}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+
+% ---------------------------------------------------------------------------
+%  METADADOS — edite aqui
+% ---------------------------------------------------------------------------
+\title{Adaptação de Domínio Livre de Fonte em\\
+       Reconhecimento de Ações em Vídeo\\
+       Baseada em Protótipos Multicêntricos}
+\subtitle{Exame de Qualificação — Mestrado em Informática}
+\author{Miguel Vanderlei de Oliveira}
+\institute{%
+  Orientadora: Prof.\textsuperscript{a} Dr.\textsuperscript{a}
+  Eulanda Miranda dos Santos\\[0.25em]
+  Programa de Pós-Graduação em Informática — PPGI\\
+  Instituto de Computação — IComp \textbullet\
+  Universidade Federal do Amazonas — UFAM}
+\date{Manaus, Julho de 2026}
+
+% ---------------------------------------------------------------------------
+\begin{document}
+
+% ── Capa ────────────────────────────────────────────────────────────────────
+\begin{frame}[noframenumbering, plain]
+  \titlepage
+\end{frame}
+
+% ── Sumário ─────────────────────────────────────────────────────────────────
+\begin{frame}{Sumário}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% ============================================================================
+\section{Introdução e Motivação}
+% ============================================================================
+
+\begin{frame}{Reconhecimento de Ações em Vídeo}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      \begin{itemize}
+        \item Tarefa fundamental da Visão Computacional
+        \item Backbone padrão: \hgreen{I3D} (Inflated 3D ConvNet)
+        \item Excelente acurácia em UCF101, HMDB51 etc.
+      \end{itemize}
+      \vspace{0.8em}
+      \begin{block}{Problema — \textit{Domain Shift}}
+        Queda de desempenho ao mudar câmera, iluminação
+        ou estilo de execução entre domínios.
+      \end{block}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \centering
+      \begin{tikzpicture}[node distance=0.9cm]
+        \node[draw=ufamNavy, fill=ufamLightGray, rounded corners=3pt,
+              align=center, font=\small\bfseries, text=ufamNavy,
+              minimum width=2.8cm, minimum height=0.9cm] (src)
+          {Fonte\\(UCF101)};
+        \node[draw=ufamGreen, fill=ufamGreenLight, rounded corners=3pt,
+              align=center, font=\small\bfseries, text=ufamGreenDark,
+              minimum width=2.8cm, minimum height=0.9cm, below=of src] (tgt)
+          {Alvo\\(HMDB51)};
+        \draw[-{Stealth}, line width=1.2pt, ufamRed, dashed]
+          (src) -- node[right, font=\tiny, text=ufamRed]
+          {$\downarrow$ acc.} (tgt);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Do UDA ao SFDA}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      \begin{alertblock}{UDA — Limitação}
+        Exige dados da fonte durante a adaptação.\\
+        Inviável por \textbf{privacidade} e \textbf{armazenamento}.
+      \end{alertblock}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \begin{exampleblock}{SFDA — Solução}
+        (1) Pré-treinamento supervisionado na \textbf{fonte}\\
+        (2) Adaptação no \textbf{alvo} sem dados da fonte
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+  \vspace{0.7em}
+  \begin{block}{Estado da Arte — \textbf{CleanAdapt} (Dasgupta et al., 2025)}
+    Trata adaptação como aprendizado com rótulos ruidosos.
+    Seleciona fração $\tau$ de menor perda por classe (\emph{small-loss trick}).\\[0.3em]
+    \hred{Limitação:} trade-off \textbf{qualidade} $\times$ \textbf{cobertura} —
+    penaliza classes minoritárias e cauda longa.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Objetivos}
+  \begin{block}{Objetivo Geral}
+    Propor método de SFVDA com \hgreen{protótipos multicêntricos} que supere
+    a limitação de cobertura do CleanAdapt via \textbf{re-rotulagem geométrica}
+    no espaço latente.
+  \end{block}
+  \vspace{0.5em}
+  \textbf{Objetivos Específicos:}
+  \begin{enumerate}
+    \item Analisar o trade-off qualidade $\times$ cobertura do CleanAdapt
+    \item Propor agrupamento multicêntrico com re-amostragem balanceada
+    \item Implementar re-rotulagem por votação majoritária (KNN + K-Means)
+    \item Investigar estratégias \textit{imbalance-aware} para cauda longa
+  \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\section{Fundamentos}
+% ============================================================================
+
+\begin{frame}{Fundamentos — Visão Geral}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      \begin{enumerate}
+        \item \textbf{Aprendizado Profundo / CNN}\\
+              \small Entropia cruzada; SGD; overfitting
+        \item \textbf{Arquitetura I3D}\\
+              \small Inflated 3D ConvNet; pré-treino Kinetics
+        \item \textbf{SFDA / SFVDA}\\
+              \small Dois estágios; sem dados fonte
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \begin{enumerate}\setcounter{enumi}{3}
+        \item \textbf{Pseudo-rótulos e Small-Loss}\\
+              \small Efeito memorização (Arpit et al., 2017)
+        \item \textbf{Estrutura Prof.–Aluno + EMA}\\
+              \small $\theta_T \leftarrow \alpha\theta_T + (1-\alpha)\theta_S$
+        \item \textbf{K-Means e Protótipos}\\
+              \small Agrupamento latente; viés de densidade
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================================
+\section{Trabalhos Relacionados}
+% ============================================================================
+
+\begin{frame}{Posicionamento na Literatura}
+  \small\renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{@{}llp{3.5cm}@{}}
+    \toprule
+    \rowcolor{ufamNavy}
+    \color{white}\textbf{Método} &
+    \color{white}\textbf{Estratégia} &
+    \color{white}\textbf{Limitação} \\
+    \midrule
+    SHOT          & Centroides + inf.\ mútua   & Só imagens \\
+    \rowcolor{ufamLightGray}
+    ATCON         & Consistência temporal      & Rótulos globais inalterados \\
+    STHC          & Banco de memória histórico & Sem topologia de classes \\
+    \rowcolor{ufamLightGray}
+    BMD           & Agrupamento balanceado     & Estima distrib.\ do alvo \\
+    DCPL          & Matriz de transição ruído  & Rótulos fixos \\
+    \rowcolor{ufamLightGray}
+    \textbf{CleanAdapt} & \textbf{Small-loss + Prof.–Aluno} &
+      \textbf{Trade-off qualidade $\times$ qtd.} \\
+    \rowcolor{ufamGreenLight}
+    \textbf{Proposta} & \textbf{Protótipos multicêntricos} &
+      Agrupamento em cauda longa \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+% ============================================================================
+\section{Abordagem Proposta}
+% ============================================================================
+
+\begin{frame}{Pipeline — Visão Geral}
+  \centering
+  \begin{tikzpicture}[
+      node distance=0.65cm and 1.0cm,
+      box/.style={draw=ufamNavy, rounded corners=3pt, fill=ufamLightGray,
+                  minimum width=2.0cm, minimum height=0.65cm,
+                  align=center, font=\scriptsize},
+      gbox/.style={box, fill=ufamGreenLight, draw=ufamGreenDark},
+      tbox/.style={box, fill=ufamTealLight, draw=ufamTeal},
+      arr/.style={-{Stealth[length=4.5pt]}, line width=0.9pt, ufamNavy},
+      garr/.style={arr, ufamGreen},
+    ]
+    \node[tbox] (src)  {Fonte I3D};
+    \node[box, right=of src]  (prof) {Professor\\(aug.\ fraco)};
+    \node[box, below=0.5cm of prof] (aluno) {Aluno\\(aug.\ forte)};
+    \node[gbox, right=of prof] (dcl)  {$\mathcal{D}_{cl}$\\confiável};
+    \node[gbox, right=of aluno] (dun) {$\mathcal{D}_{un}$\\incerto};
+    \node[tbox, right=of dcl]  (proto) {Protótipos\\K-Means};
+    \node[gbox, right=of dun]  (relabel) {Re-rotulagem\\KNN};
+    \node[box, right=1.2cm of proto] (train) {Treino\\$\mathcal{D}_{cl}\cup\mathcal{D}_{un}^{\text{rel}}$};
+    \draw[arr] (src)   -- (prof);
+    \draw[arr] (prof)  -- node[above,font=\tiny]{$\tau$} (dcl);
+    \draw[arr] (prof)  -- node[below,font=\tiny]{alta perda} (dun);
+    \draw[arr] (dcl)   -- (proto);
+    \draw[arr] (proto) -- (relabel);
+    \draw[arr] (dun)   -- (relabel);
+    \draw[arr] (dcl.east) to[bend left=18] (train.north);
+    \draw[arr] (relabel)  -- (train);
+    \draw[garr] (train.south) to[bend right=25]
+      node[below,font=\tiny]{backprop} (aluno.south);
+    \draw[garr] (aluno.west) to[bend right=15]
+      node[left,font=\tiny]{EMA} (prof.west);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Os Quatro Passos da Re-rotulagem}
+  \begin{enumerate}
+    \item \textbf{Subconjunto confiável} — Professor filtra fração $\tau$ de
+          menor perda por classe $\Rightarrow$ $\mathcal{D}_{cl}$.
+          Complemento: $\mathcal{D}_{un} = \mathcal{D}_t \setminus \mathcal{D}_{cl}$.
+
+    \item \textbf{Protótipos multicêntricos} — K-Means com $K$ centroides sobre
+          embeddings $\ell_2$-normalizados de $\mathcal{D}_{cl}^c$ para cada
+          classe $c \in \mathcal{Y}$.
+
+    \item \textbf{Conjunto global} $\mathcal{P} = \bigcup_c \mathcal{P}_c$ —
+          métrica \textbf{Mahalanobis} (selecionada via Optuna).
+
+    \item \textbf{Re-rotulagem por votação}
+          $\hat{y}_i^* = \arg\max_c |\{\mu \in \mathcal{N}_k(x_i,\mathcal{P})
+          : \text{classe}(\mu)=c\}|$
+
+          Aluno treina sobre $\mathcal{D}_{cl} \cup \mathcal{D}_{un}^{\text{rel}}$.
+  \end{enumerate}
+  \vspace{0.4em}
+  \begin{exampleblock}{Desacoplamento chave}
+    $\tau$ controla apenas o \emph{tamanho do âncora}, não a cobertura do treino.
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Robustez — Distribuições de Cauda Longa}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{Problema}
+        K-Means tem \textbf{viés de densidade}: classes majoritárias
+        dominam os centroides.
+      \end{alertblock}
+      \vspace{0.5em}
+      \begin{exampleblock}{Re-amostragem Balanceada}
+        $n_{\min} = \min_{c} |\mathcal{D}_{cl}^c|$ instâncias por classe
+        $\Rightarrow$ todas as classes contribuem igualmente para $\mathcal{P}$.
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Direções Futuras}
+        \begin{itemize}
+          \item Amostragem curricular — ISFDA
+          \item Interseção de vizinhanças — Robust NN
+          \item Classificador normalizado $\ell_2$ — ICPR
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================================
+\section{Resultados Preliminares}
+% ============================================================================
+
+\begin{frame}{Resultados — UCF101 $\leftrightarrow$ HMDB51}
+  \centering\small\renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \rowcolor{ufamNavy}
+    \color{white}\textbf{Método} &
+    \color{white}\textbf{UCF$\!\to\!$HMDB (\%)} &
+    \color{white}\textbf{HMDB$\!\to\!$UCF (\%)} \\
+    \midrule
+    CleanAdapt+TS (baseline) & 87{,}78 & 96{,}67 \\
+    \rowcolor{ufamLightGray}
+    Aumento linear de $\tau$  & 87{,}50 & 96{,}50 \\
+    ATCON$^\dagger$           & 79{,}70 & 85{,}30 \\
+    \rowcolor{ufamLightGray}
+    MTRAN$^\ddagger$          & 92{,}20 & 95{,}30 \\
+    \midrule
+    \rowcolor{ufamGreenLight}
+    \textbf{Protótipos (proposta)} &
+      \textbf{92{,}78} & \textbf{98{,}25} \\
+    \bottomrule
+    \multicolumn{3}{l}{\tiny $^\dagger$ Backbone TRN;\ \
+    $^\ddagger$ Transformer multimodal}
+  \end{tabular}
+  \vspace{0.6em}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      \begin{exampleblock}{UCF $\to$ HMDB}
+        \textbf{+5,00 p.p.}\ sobre baseline\\
+        (direção mais difícil; alvo desbalanceado)
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \begin{exampleblock}{HMDB $\to$ UCF}
+        \textbf{+1,58 p.p.}\ sobre baseline\\
+        Competitivo com Transformers via I3D
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Perguntas de Pesquisa + Epic-Kitchens}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      \begin{block}{PP1 — Sensibilidade ao $\tau$}
+        \begin{itemize}
+          \item Proposta: $\tau$ regula âncora, não cobertura
+          \item Melhor UCF$\!\to\!$HMDB com $\tau\!=\!0{,}2$
+          \item Âncora pequeno + re-rotulagem = suficiente
+        \end{itemize}
+      \end{block}
+      \vspace{0.3em}
+      \begin{block}{PP2 — K$>$1 vs K$=$1}
+        \begin{itemize}
+          \item K$>$1 supera K$=$1 em até +1,94 p.p.\ em $\mathcal{D}_{un}$
+          \item Múltiplos centroides capturam sub-modos intra-classe
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{Epic-Kitchens — Limitação}
+        Baseline supera proposta em todos os\\
+        6 cenários (lacuna até 16 p.p.).\\[0.3em]
+        \textbf{Causa:} viés de densidade K-Means\\
+        + pseudo-rótulos ruidosos iniciais.\\[0.3em]
+        $\Rightarrow$ Motiva estratégias \textit{imbalance-aware}
+        nos próximos passos.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================================
+\section{Considerações Parciais e Próximos Passos}
+% ============================================================================
+
+\begin{frame}{Contribuições e Cronograma}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      \textbf{Contribuições:}
+      \begin{itemize}
+        \item Re-rotulagem geométrica multicêntrica
+        \item +5 p.p.\ sobre SOTA em UCF$\leftrightarrow$HMDB
+        \item Desacoplamento âncora/cobertura via $\tau$
+        \item \hgreen{Artigo aceito no BRACIS 2026}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \textbf{Próximos Passos:}
+      \begin{enumerate}
+        \item Validar re-amostragem no Epic-Kitchens
+        \item Amostragem curricular (ISFDA)
+        \item Interseção de vizinhanças (Robust NN)
+        \item Comparação ampliada + redação final (2027)
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── Slide Final ──────────────────────────────────────────────────────────────
+\begin{frame}[noframenumbering, plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[ufamNavy]
+      (current page.south west) rectangle (current page.north east);
+    \fill[ufamGreen]
+      (current page.north west)
+      rectangle ([yshift=-0.09\paperheight]current page.north east);
+    \fill[ufamTeal]
+      ([yshift=-0.09\paperheight]current page.north west)
+      rectangle ([yshift=-0.105\paperheight]current page.north east);
+    \fill[ufamGreen]
+      (current page.south west)
+      rectangle ([yshift=0.045\paperheight]current page.south east);
+    \fill[ufamNavyLight, opacity=0.35]
+      (current page.south east)
+      -- ([xshift=-0.45\paperwidth]current page.south east)
+      -- (current page.south east |- current page.center)
+      -- cycle;
+    \node[font=\LARGE\bfseries, text=ufamWhite]
+      at (current page.center) {Obrigado!};
+    \node[font=\normalsize, text=ufamGreenLight,
+          below=0.5cm of current page.center]
+      {Dúvidas e discussões};
+    \node[font=\small, text=ufamMidGray,
+          anchor=south, yshift=0.12\paperheight]
+      at (current page.south)
+      {\insertauthor\ \textbullet\ IComp/PPGI/UFAM};
+  \end{tikzpicture}
+\end{frame}
+
+\end{document}

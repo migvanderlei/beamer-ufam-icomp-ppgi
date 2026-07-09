@@ -1,0 +1,444 @@
+% =============================================================================
+%  beamerthemeUFAM.sty
+%  Tema Beamer Oficial — UFAM / IComp / PPGI
+%
+%  Paleta extraída do Manual de Identidade Visual UFAM (MIV-UFAM-2020-v3)
+%  Cores confirmadas:  #00a551 (verde), #06304c / #0d3049 (azul navy),
+%                      #176073 (teal), #ec1c24 (vermelho), #5f2568 (roxo PPG)
+%  Tipografia oficial: Arial Rounded MT Bold (marca), Myriad Pro (unidades)
+%                      → LaTeX: helvet (sans-serif), mathptmx (math serif)
+%
+%  Compatível com:  pdflatex / lualatex / xelatex + Overleaf
+%  Autor:  Template gerado automaticamente — IComp/PPGI/UFAM, 2026
+% =============================================================================
+
+\ProvidesPackage{beamerthemeUFAM}[2026/07/09 v1.0 UFAM/IComp Beamer Theme]
+
+\mode<presentation>
+
+% ---------------------------------------------------------------------------
+%  DEPENDÊNCIAS
+% ---------------------------------------------------------------------------
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{graphicx}
+\RequirePackage{ifthen}
+\RequirePackage{etoolbox}
+\usetikzlibrary{calc, positioning, shapes.geometric, backgrounds, arrows.meta}
+
+% ---------------------------------------------------------------------------
+%  PALETA OFICIAL — MIV-UFAM-2020-v3
+% ---------------------------------------------------------------------------
+
+%% ── Cores Primárias da Marca ──────────────────────────────────────────────
+\definecolor{ufamGreen}{HTML}{00A551}      % Verde UFAM – Pantone 354 C
+\definecolor{ufamRed}{HTML}{EC1C24}        % Vermelho – Pantone Bright Red C
+\definecolor{ufamPink}{HTML}{CD3E68}       % Rosa – Pantone 191 C
+\definecolor{ufamYellow}{HTML}{FFF100}     % Amarelo – Pantone 3955 C
+\definecolor{ufamBlack}{HTML}{231F20}      % Preto – Pantone Neutral Black C
+
+%% ── Paleta de Destaque (MIV p.20) ────────────────────────────────────────
+\definecolor{ufamNavy}{HTML}{0D3049}       % Azul marinho – Pantone 7463
+\definecolor{ufamNavyUnit}{HTML}{06304C}   % Azul navy unidades (assinaturas)
+\definecolor{ufamTeal}{HTML}{176073}       % Teal – Pantone 7470 C
+\definecolor{ufamOrange}{HTML}{EB6C1D}     % Laranja – Pantone 1585 C
+\definecolor{ufamLimeGreen}{HTML}{C2D94B}  % Verde-lima – Pantone 382 C
+\definecolor{ufamGold}{HTML}{E09D16}       % Dourado – Pantone 137 C
+\definecolor{ufamAmber}{HTML}{FAA040}      % Âmbar – Pantone 1375 C
+\definecolor{ufamPurple}{HTML}{5E2468}     % Roxo PPG – Pantone 255 C
+\definecolor{ufamPurplePPG}{HTML}{5F2568}  % Roxo Programas de Pós-Grad.
+\definecolor{ufamFuchsia}{HTML}{CF4490}    % Fúcsia – Pantone 212 C
+\definecolor{ufamYellowGreen}{HTML}{B8CE39}% Verde-amarelo – Pantone 583 C
+\definecolor{ufamTealUnit}{HTML}{45808F}   % Teal órgãos suplementares
+
+%% ── Derivadas para layout ─────────────────────────────────────────────────
+\definecolor{ufamGreenDark}{HTML}{007A3D}
+\definecolor{ufamGreenLight}{HTML}{E6F7EF}
+\definecolor{ufamNavyLight}{HTML}{1A4A6B}
+\definecolor{ufamTealLight}{HTML}{EAF4F7}
+\definecolor{ufamWhite}{HTML}{FFFFFF}
+\definecolor{ufamLightGray}{HTML}{F5F5F5}
+\definecolor{ufamMidGray}{HTML}{BDBDBD}
+\definecolor{ufamDarkGray}{HTML}{424242}
+\definecolor{ufamTextDark}{HTML}{231F20}   % Preto oficial MIV
+
+% ---------------------------------------------------------------------------
+%  FONTES
+%  Arial Rounded MT Bold → \usepackage{helvet} + \renewcommand
+%  Fonte institucional mais próxima no LaTeX: Helvetica (helvet)
+% ---------------------------------------------------------------------------
+\RequirePackage[scaled=0.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usefonttheme{professionalfonts}
+\usefonttheme[onlymath]{serif}
+
+% ---------------------------------------------------------------------------
+%  CORES DO BEAMER
+% ---------------------------------------------------------------------------
+\usecolortheme{default}
+
+% Estrutura geral
+\setbeamercolor{structure}{fg=ufamNavy}
+\setbeamercolor{normal text}{fg=ufamTextDark, bg=ufamWhite}
+\setbeamercolor{alerted text}{fg=ufamRed}
+\setbeamercolor{example text}{fg=ufamGreenDark}
+
+% Paletas de cor
+\setbeamercolor{palette primary}{fg=ufamWhite,   bg=ufamNavy}
+\setbeamercolor{palette secondary}{fg=ufamWhite, bg=ufamGreen}
+\setbeamercolor{palette tertiary}{fg=ufamWhite,  bg=ufamTeal}
+\setbeamercolor{palette quaternary}{fg=ufamNavy, bg=ufamLightGray}
+
+% Título do frame
+\setbeamercolor{frametitle}{fg=ufamWhite, bg=ufamNavy}
+\setbeamercolor{framesubtitle}{fg=ufamGreenLight}
+
+% Slide de título
+\setbeamercolor{title}{fg=ufamWhite, bg=ufamNavy}
+\setbeamercolor{subtitle}{fg=ufamGreenLight}
+\setbeamercolor{author}{fg=ufamWhite}
+\setbeamercolor{institute}{fg=ufamGreenLight}
+\setbeamercolor{date}{fg=ufamMidGray}
+
+% Blocos
+\setbeamercolor{block title}{fg=ufamWhite,      bg=ufamNavy}
+\setbeamercolor{block body}{fg=ufamTextDark,    bg=ufamLightGray}
+\setbeamercolor{block title alerted}{fg=ufamWhite,   bg=ufamRed}
+\setbeamercolor{block body alerted}{fg=ufamTextDark, bg=ufamLightGray}
+\setbeamercolor{block title example}{fg=ufamWhite,   bg=ufamGreenDark}
+\setbeamercolor{block body example}{fg=ufamTextDark, bg=ufamGreenLight}
+
+% Itens
+\setbeamercolor{item}{fg=ufamGreen}
+\setbeamercolor{subitem}{fg=ufamTeal}
+\setbeamercolor{subsubitem}{fg=ufamDarkGray}
+
+% Rodapé e separadores
+\setbeamercolor{footline}{fg=ufamWhite, bg=ufamNavy}
+\setbeamercolor{separation line}{bg=ufamGreen}
+\setbeamercolor{upper separation line head}{bg=ufamGreen}
+
+% Sumário
+\setbeamercolor{section in toc}{fg=ufamNavy}
+\setbeamercolor{subsection in toc}{fg=ufamTeal}
+\setbeamercolor{section in toc shaded}{fg=ufamMidGray}
+
+% ---------------------------------------------------------------------------
+%  FONTES DOS ELEMENTOS BEAMER
+% ---------------------------------------------------------------------------
+\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize, series=\normalfont}
+\setbeamerfont{author}{size=\normalsize, series=\bfseries}
+\setbeamerfont{institute}{size=\small, series=\normalfont}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\footnotesize, series=\normalfont}
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+\setbeamerfont{footline}{size=\tiny}
+\setbeamerfont{section in toc}{series=\bfseries, size=\normalsize}
+\setbeamerfont{subsection in toc}{series=\normalfont, size=\small}
+
+% ---------------------------------------------------------------------------
+%  SLIDE DE CAPA
+% ---------------------------------------------------------------------------
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    %% Fundo
+    \fill[ufamNavy]
+      (current page.south west) rectangle (current page.north east);
+
+    %% Faixa verde no topo (identidade visual das assinaturas UFAM)
+    \fill[ufamGreen]
+      (current page.north west)
+      rectangle ([yshift=-0.09\paperheight]current page.north east);
+
+    %% Linha teal de separação (cor das unidades do MIV)
+    \fill[ufamTeal]
+      ([yshift=-0.09\paperheight]current page.north west)
+      rectangle ([yshift=-0.105\paperheight]current page.north east);
+
+    %% Faixa verde no rodapé
+    \fill[ufamGreen]
+      (current page.south west)
+      rectangle ([yshift=0.045\paperheight]current page.south east);
+
+    %% Elemento geométrico decorativo — triângulo navy (canto direito)
+    \fill[ufamNavyLight, opacity=0.40]
+      ([xshift=0.55\paperwidth]current page.south)
+      -- (current page.south east)
+      -- ([yshift=0.55\paperheight]current page.south east)
+      -- cycle;
+
+    %% Acento teal suave
+    \fill[ufamTeal, opacity=0.20]
+      ([xshift=0.68\paperwidth]current page.south)
+      -- (current page.south east)
+      -- ([yshift=0.28\paperheight]current page.south east)
+      -- cycle;
+
+    %% ── LOGOS ─────────────────────────────────────────────────────────────
+    %% Logo UFAM — esquerda do cabeçalho verde
+    \node[anchor=west, inner sep=0pt]
+      at ([xshift=0.045\paperwidth, yshift=-0.045\paperheight]current page.north west){%
+        \IfFileExists{logo_ufam.png}{%
+          \includegraphics[height=0.062\paperheight]{logo_ufam.png}%
+        }{%
+          % Fallback: texto estilizado quando logo não disponível
+          \begin{tikzpicture}[baseline=-0.5ex]
+            \node[fill=ufamWhite, rounded corners=2pt,
+                  inner sep=3pt, font=\tiny\bfseries, text=ufamNavy]
+              {UFAM};
+          \end{tikzpicture}%
+        }%
+      };
+
+    %% Logo IComp — direita do cabeçalho verde
+    \node[anchor=east, inner sep=0pt]
+      at ([xshift=-0.045\paperwidth, yshift=-0.045\paperheight]current page.north east){%
+        \IfFileExists{logo_icomp.png}{%
+          \includegraphics[height=0.062\paperheight]{logo_icomp.png}%
+        }{%
+          \begin{tikzpicture}[baseline=-0.5ex]
+            \node[fill=ufamWhite, rounded corners=2pt,
+                  inner sep=3pt, font=\tiny\bfseries, text=ufamNavy]
+              {IComp};
+          \end{tikzpicture}%
+        }%
+      };
+
+    %% ── TÍTULO ────────────────────────────────────────────────────────────
+    \node[anchor=north west,
+          text width=0.86\paperwidth,
+          inner sep=0pt, align=left]
+      at ([xshift=0.07\paperwidth, yshift=-0.185\paperheight]current page.north west){%
+        \usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle%
+      };
+
+    %% Linha separadora verde (marca registrada do MIV nas peças)
+    \draw[ufamGreen, line width=2pt]
+      ([xshift=0.07\paperwidth,  yshift=-0.455\paperheight]current page.north west)
+      --
+      ([xshift=0.93\paperwidth, yshift=-0.455\paperheight]current page.north west);
+
+    %% ── SUBTÍTULO ─────────────────────────────────────────────────────────
+    \node[anchor=north west,
+          text width=0.86\paperwidth,
+          inner sep=0pt, align=left]
+      at ([xshift=0.07\paperwidth, yshift=-0.475\paperheight]current page.north west){%
+        \usebeamerfont{subtitle}\textcolor{ufamGreenLight}{\insertsubtitle}%
+      };
+
+    %% ── AUTOR ─────────────────────────────────────────────────────────────
+    \node[anchor=north west,
+          text width=0.86\paperwidth,
+          inner sep=0pt, align=left]
+      at ([xshift=0.07\paperwidth, yshift=-0.60\paperheight]current page.north west){%
+        \usebeamerfont{author}\textcolor{ufamWhite}{\insertauthor}%
+      };
+
+    %% ── INSTITUTO ─────────────────────────────────────────────────────────
+    \node[anchor=north west,
+          text width=0.86\paperwidth,
+          inner sep=0pt, align=left]
+      at ([xshift=0.07\paperwidth, yshift=-0.68\paperheight]current page.north west){%
+        \usebeamerfont{institute}\textcolor{ufamGreenLight}{\insertinstitute}%
+      };
+
+    %% ── DATA ──────────────────────────────────────────────────────────────
+    \node[anchor=south east, inner sep=0pt]
+      at ([xshift=-0.05\paperwidth, yshift=0.058\paperheight]current page.south east){%
+        \usebeamerfont{date}\textcolor{ufamMidGray}{\insertdate}%
+      };
+
+  \end{tikzpicture}%
+}
+
+% ---------------------------------------------------------------------------
+%  CABEÇALHO DO FRAME
+% ---------------------------------------------------------------------------
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip%
+  % Barra superior colorida (ufamNavy)
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,
+      ht=0.52cm, dp=0.22cm,
+      leftskip=0.50cm, rightskip=0.50cm]{frametitle}%
+    \usebeamerfont{frametitle}\insertframetitle%
+    \ifx\insertframesubtitle\@empty\else%
+      \hspace{0.5em}%
+      \usebeamerfont{framesubtitle}%
+      \textcolor{ufamGreenLight}{— \insertframesubtitle}%
+    \fi%
+  \end{beamercolorbox}%
+  % Linha verde de separação (elemento característico do MIV)
+  \begin{beamercolorbox}[wd=\paperwidth, ht=1.8pt, dp=0pt]{separation line}%
+  \end{beamercolorbox}%
+}
+
+% ---------------------------------------------------------------------------
+%  RODAPÉ
+% ---------------------------------------------------------------------------
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,
+      ht=0.34cm, dp=0.14cm]{footline}%
+    \hspace{0.45cm}%
+    {\usebeamerfont{footline}\bfseries\insertshorttitle}%
+    \ifx\insertshortauthor\@empty\else%
+      {\usebeamerfont{footline}\ \textbullet\ \insertshortauthor}%
+    \fi%
+    \hfill%
+    {\usebeamerfont{footline}\insertshortinstitute}%
+    \hfill%
+    {\usebeamerfont{footline}%
+      \insertframenumber\,/\,\inserttotalframenumber%
+      \hspace{0.45cm}}%
+  \end{beamercolorbox}%
+}
+
+% ---------------------------------------------------------------------------
+%  ITENS E ENUMERAÇÃO
+% ---------------------------------------------------------------------------
+\setbeamertemplate{itemize item}{%
+  \tikz[baseline=-0.55ex]
+    \filldraw[ufamGreen] (0,0) circle (0.14em);%
+}
+\setbeamertemplate{itemize subitem}{%
+  \tikz[baseline=-0.55ex]
+    \filldraw[ufamTeal]
+      (0,0) -- (0.26em,0) -- (0.13em,0.23em) -- cycle;%
+}
+\setbeamertemplate{itemize subsubitem}{%
+  \tikz[baseline=-0.55ex]
+    \draw[ufamDarkGray, line width=0.75pt]
+      (0,0) rectangle (0.20em, 0.20em);%
+}
+\setbeamertemplate{enumerate item}{%
+  \tikz[baseline=-0.6ex]{%
+    \filldraw[ufamNavy] (0,0) circle (0.65ex);
+    \node[text=ufamWhite, font=\tiny\bfseries] at (0,0) {\insertenumlabel};
+  }%
+}
+\setbeamertemplate{enumerate subitem}{%
+  \tikz[baseline=-0.6ex]{%
+    \filldraw[ufamTeal] (0,0) circle (0.60ex);
+    \node[text=ufamWhite, font=\tiny\bfseries] at (0,0) {\insertenumlabel};
+  }%
+}
+
+% ---------------------------------------------------------------------------
+%  BLOCOS
+% ---------------------------------------------------------------------------
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+% ---------------------------------------------------------------------------
+%  SUMÁRIO
+% ---------------------------------------------------------------------------
+\setbeamertemplate{section in toc}{%
+  \leavevmode%
+  \hspace{0.2em}%
+  \tikz[baseline=-0.5ex]{%
+    \filldraw[ufamNavy] (0,0) circle (0.60ex);
+    \node[text=ufamWhite, font=\tiny\bfseries] at (0,0) {\inserttocsectionnumber};
+  }%
+  \hspace{0.5em}%
+  {\usebeamerfont{section in toc}\inserttocsection}\par%
+}
+\setbeamertemplate{subsection in toc}{%
+  \leavevmode\leftskip=1.5em%
+  \tikz[baseline=-0.5ex]
+    \filldraw[ufamTeal] (0,0) circle (0.40ex);%
+  \hspace{0.4em}%
+  {\usebeamerfont{subsection in toc}\inserttocsubsection}\par%
+}
+
+% ---------------------------------------------------------------------------
+%  SLIDE DIVISOR DE SEÇÃO
+% ---------------------------------------------------------------------------
+\AtBeginSection[]{%
+  \begin{frame}[noframenumbering, plain]%
+    \begin{tikzpicture}[remember picture, overlay]
+      %% Fundo navy
+      \fill[ufamNavy]
+        (current page.south west) rectangle (current page.north east);
+      %% Faixa verde topo
+      \fill[ufamGreen]
+        (current page.north west)
+        rectangle ([yshift=-0.09\paperheight]current page.north east);
+      %% Linha teal
+      \fill[ufamTeal]
+        ([yshift=-0.09\paperheight]current page.north west)
+        rectangle ([yshift=-0.105\paperheight]current page.north east);
+      %% Faixa verde rodapé
+      \fill[ufamGreen]
+        (current page.south west)
+        rectangle ([yshift=0.045\paperheight]current page.south east);
+      %% Ornamento geométrico diagonal
+      \fill[ufamNavyLight, opacity=0.35]
+        (current page.south west)
+        -- ([xshift=0.50\paperwidth]current page.south)
+        -- (current page.west |- current page.center)
+        -- cycle;
+      %% Número da seção como watermark
+      \node[font=\fontsize{90}{90}\selectfont\bfseries,
+            text=ufamGreen, opacity=0.10, anchor=east]
+        at ([xshift=-0.03\paperwidth]current page.east |- current page.center)
+        {\thesection};
+      %% Título da seção
+      \node[anchor=center,
+            text width=0.72\paperwidth, align=center,
+            text=ufamWhite,
+            font=\Large\bfseries]
+        at (current page.center)
+        {\insertsectionhead};
+      %% Linha decorativa abaixo do título
+      \draw[ufamGreen, line width=2.5pt]
+        ([xshift=0.22\paperwidth, yshift=-0.065\paperheight]current page.center)
+        -- ([xshift=0.78\paperwidth, yshift=-0.065\paperheight]current page.center);
+    \end{tikzpicture}%
+  \end{frame}%
+}
+
+% ---------------------------------------------------------------------------
+%  NAVEGAÇÃO — DESATIVAR
+% ---------------------------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+
+% ---------------------------------------------------------------------------
+%  MARGENS
+% ---------------------------------------------------------------------------
+\setbeamersize{text margin left=0.55cm, text margin right=0.55cm}
+
+% ---------------------------------------------------------------------------
+%  COMANDOS AUXILIARES CUSTOMIZADOS
+% ---------------------------------------------------------------------------
+
+%% Caixa de destaque verde (exemplo de bloco customizado)
+\newenvironment{ufambox}[1][]{%
+  \begin{beamercolorbox}[rounded=true, sep=0.45em, wd=\linewidth]{block title example}%
+    \ifstrempty{#1}{}{\textbf{#1}\par\vspace{2pt}}%
+  \end{beamercolorbox}\vspace{-0.4pt}%
+  \begin{beamercolorbox}[rounded=true, sep=0.75em, wd=\linewidth]{block body example}%
+}{%
+  \end{beamercolorbox}%
+}
+
+%% Caixa de alerta vermelha
+\newenvironment{ufamalert}[1][]{%
+  \begin{beamercolorbox}[rounded=true, sep=0.45em, wd=\linewidth]{block title alerted}%
+    \ifstrempty{#1}{}{\textbf{#1}\par\vspace{2pt}}%
+  \end{beamercolorbox}\vspace{-0.4pt}%
+  \begin{beamercolorbox}[rounded=true, sep=0.75em, wd=\linewidth]{block body alerted}%
+}{%
+  \end{beamercolorbox}%
+}
+
+%% Destaque inline na cor ufamGreen
+\newcommand{\hgreen}[1]{\textcolor{ufamGreen}{\textbf{#1}}}
+%% Destaque inline na cor ufamNavy
+\newcommand{\hnavy}[1]{\textcolor{ufamNavy}{\textbf{#1}}}
+%% Destaque inline alerta
+\newcommand{\hred}[1]{\textcolor{ufamRed}{\textbf{#1}}}
+
+\mode<all>
