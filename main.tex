@@ -1,14 +1,14 @@
 % =============================================================================
-%  main.tex — Apresentação UFAM/IComp/PPGI
+%  main.tex — Apresentação IComp / PPGI / UFAM
 %  Use: pdflatex main.tex (2x) no Overleaf ou localmente
-%  Logos: baixe logo_ufam.png e logo_icomp.png e coloque na mesma pasta
+%  Logos: logos/logo_icomp.png, logos/logo_ufam.png
 % =============================================================================
 \documentclass[aspectratio=169, 10pt, brazil]{beamer}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
-\usepackage{beamerthemeUFAM}   % <- arquivo beamerthemeUFAM.sty na mesma pasta
+\usepackage{beamerthemeIComp}
 \usepackage{booktabs, multirow, colortbl}
 \usepackage{amsmath, amssymb}
 \usepackage{tikz}
@@ -21,13 +21,13 @@
        Reconhecimento de Ações em Vídeo\\
        Baseada em Protótipos Multicêntricos}
 \subtitle{Exame de Qualificação — Mestrado em Informática}
-\author{Miguel Vanderlei de Oliveira}
-\institute{%
-  Orientadora: Prof.\textsuperscript{a} Dr.\textsuperscript{a}
-  Eulanda Miranda dos Santos\\[0.25em]
-  Programa de Pós-Graduação em Informática — PPGI\\
-  Instituto de Computação — IComp \textbullet\
-  Universidade Federal do Amazonas — UFAM}
+\author[M. Vanderlei]{Miguel Vanderlei de Oliveira}
+\institute[IComp · PPGI · UFAM]{%
+  Instituto de Computação — IComp\\
+  Programa de Pós-Graduação em Informática — PPGI · UFAM
+}
+\icompadvisor{Orientadora: Prof.\textsuperscript{a} Dr.\textsuperscript{a} Eulanda Miranda dos Santos}
+\icompfooter{IComp · PPGI · UFAM}
 \date{Manaus, Julho de 2026}
 
 % ---------------------------------------------------------------------------
@@ -40,7 +40,14 @@
 
 % ── Sumário ─────────────────────────────────────────────────────────────────
 \begin{frame}{Sumário}
-  \tableofcontents[hideallsubsections]
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.47\textwidth}
+      \tableofcontents[sections={1-3},hideallsubsections]
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \tableofcontents[sections={4-6},hideallsubsections]
+    \end{column}
+  \end{columns}
 \end{frame}
 
 % ============================================================================
@@ -95,7 +102,7 @@
       \end{exampleblock}
     \end{column}
   \end{columns}
-  \vspace{0.7em}
+  \vspace{-0.2em}
   \begin{block}{Estado da Arte — \textbf{CleanAdapt} (Dasgupta et al., 2025)}
     Trata adaptação como aprendizado com rótulos ruidosos.
     Seleciona fração $\tau$ de menor perda por classe (\emph{small-loss trick}).\\[0.3em]
@@ -273,7 +280,7 @@
 % ============================================================================
 
 \begin{frame}{Resultados — UCF101 $\leftrightarrow$ HMDB51}
-  \centering\small\renewcommand{\arraystretch}{1.3}
+  \centering\small\renewcommand{\arraystretch}{1.15}
   \begin{tabular}{@{}lcc@{}}
     \toprule
     \rowcolor{ufamNavy}
@@ -295,7 +302,7 @@
     \multicolumn{3}{l}{\tiny $^\dagger$ Backbone TRN;\ \
     $^\ddagger$ Transformer multimodal}
   \end{tabular}
-  \vspace{0.6em}
+  \vspace{0.2em}
   \begin{columns}[T]
     \begin{column}{0.47\textwidth}
       \begin{exampleblock}{UCF $\to$ HMDB}
@@ -312,8 +319,8 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Perguntas de Pesquisa + Epic-Kitchens}
-  \begin{columns}[T]
+\begin{frame}{Perguntas de Pesquisa}
+  \begin{columns}[T,onlytextwidth]
     \begin{column}{0.47\textwidth}
       \begin{block}{PP1 — Sensibilidade ao $\tau$}
         \begin{itemize}
@@ -322,7 +329,8 @@
           \item Âncora pequeno + re-rotulagem = suficiente
         \end{itemize}
       \end{block}
-      \vspace{0.3em}
+    \end{column}
+    \begin{column}{0.47\textwidth}
       \begin{block}{PP2 — K$>$1 vs K$=$1}
         \begin{itemize}
           \item K$>$1 supera K$=$1 em até +1,94 p.p.\ em $\mathcal{D}_{un}$
@@ -330,15 +338,24 @@
         \end{itemize}
       \end{block}
     \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Epic-Kitchens — Limitação}
-        Baseline supera proposta em todos os\\
-        6 cenários (lacuna até 16 p.p.).\\[0.3em]
-        \textbf{Causa:} viés de densidade K-Means\\
-        + pseudo-rótulos ruidosos iniciais.\\[0.3em]
-        $\Rightarrow$ Motiva estratégias \textit{imbalance-aware}
-        nos próximos passos.
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Epic-Kitchens}{Limitação em distribuições de cauda longa}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.47\textwidth}
+      \begin{alertblock}{Resultado}
+        Baseline supera proposta nos 6 cenários, com lacuna de até
+        \textbf{16 p.p.}
       \end{alertblock}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \begin{block}{Diagnóstico}
+        Viés de densidade do K-Means e pseudo-rótulos iniciais ruidosos.
+      \end{block}
+      \begin{exampleblock}{Direção}
+        Estratégias \textit{imbalance-aware} nos próximos passos.
+      \end{exampleblock}
     \end{column}
   \end{columns}
 \end{frame}
@@ -371,34 +388,6 @@
 \end{frame}
 
 % ── Slide Final ──────────────────────────────────────────────────────────────
-\begin{frame}[noframenumbering, plain]
-  \begin{tikzpicture}[remember picture, overlay]
-    \fill[ufamNavy]
-      (current page.south west) rectangle (current page.north east);
-    \fill[ufamGreen]
-      (current page.north west)
-      rectangle ([yshift=-0.09\paperheight]current page.north east);
-    \fill[ufamTeal]
-      ([yshift=-0.09\paperheight]current page.north west)
-      rectangle ([yshift=-0.105\paperheight]current page.north east);
-    \fill[ufamGreen]
-      (current page.south west)
-      rectangle ([yshift=0.045\paperheight]current page.south east);
-    \fill[ufamNavyLight, opacity=0.35]
-      (current page.south east)
-      -- ([xshift=-0.45\paperwidth]current page.south east)
-      -- (current page.south east |- current page.center)
-      -- cycle;
-    \node[font=\LARGE\bfseries, text=ufamWhite]
-      at (current page.center) {Obrigado!};
-    \node[font=\normalsize, text=ufamGreenLight,
-          below=0.5cm of current page.center]
-      {Dúvidas e discussões};
-    \node[font=\small, text=ufamMidGray,
-          anchor=south, yshift=0.12\paperheight]
-      at (current page.south)
-      {\insertauthor\ \textbullet\ IComp/PPGI/UFAM};
-  \end{tikzpicture}
-\end{frame}
+\ufamthanksframe
 
 \end{document}

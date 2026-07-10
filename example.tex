@@ -1,103 +1,127 @@
 % =============================================================================
-%  example.tex — Exemplo mínimo de 3 slides
-%  Template Beamer UFAM/IComp/PPGI
+%  example.tex — Exemplo mínimo
+%  Template Beamer IComp / PPGI / UFAM
 %  Compile: pdflatex example.tex
 % =============================================================================
-\documentclass[aspectratio=169, 10pt, brazil]{beamer}
+\documentclass[aspectratio=169, 11pt, brazil]{beamer}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
-\usepackage{beamerthemeUFAM}
-\usepackage{booktabs}
-\usepackage{colortbl}
+\usepackage{beamerthemeIComp}
+\usepackage{booktabs, colortbl}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
 
-\title{Template Beamer UFAM/IComp/PPGI}
-\subtitle{Exemplo de Apresentação Acadêmica}
-\author{Miguel Vanderlei de Oliveira}
-\institute{%
-  Programa de Pós-Graduação em Informática — PPGI\\
-  Instituto de Computação — IComp \textbullet\
-  Universidade Federal do Amazonas — UFAM}
+\title{Template Beamer IComp}
+\subtitle{Apresentações acadêmicas do Instituto de Computação}
+\author[M. Vanderlei]{Miguel Vanderlei de Oliveira}
+\institute[IComp · PPGI · UFAM]{%
+  Instituto de Computação — IComp\\
+  Programa de Pós-Graduação em Informática — PPGI · UFAM
+}
+\icompadvisor{Orientador: Prof.\ Dr. Nome do Orientador}
+\icompfooter{IComp · PPGI · UFAM}
 \date{Manaus, Julho de 2026}
 
 \begin{document}
 
-% ── Slide 1: Capa ────────────────────────────────────────────────────────────
 \begin{frame}[noframenumbering, plain]
   \titlepage
 \end{frame}
 
-% ── Slide 2: Conteúdo ────────────────────────────────────────────────────────
-\begin{frame}{Elementos do Template}
-  \begin{columns}[T]
-    \begin{column}{0.47\textwidth}
-      \textbf{Blocos disponíveis:}
+\begin{frame}{Elementos do template}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
       \begin{block}{Bloco padrão}
-        Informação neutra ou definição.
+        Definição ou contexto neutro.
       \end{block}
-      \vspace{0.4em}
-      \begin{exampleblock}{Bloco de exemplo}
-        Resultado positivo ou destaque.
+      \begin{exampleblock}{Exemplo}
+        Resultado ou destaque positivo.
       \end{exampleblock}
-      \vspace{0.4em}
-      \begin{alertblock}{Bloco de alerta}
-        Limitação ou ponto de atenção.
-      \end{alertblock}
     \end{column}
-    \begin{column}{0.47\textwidth}
-      \textbf{Paleta oficial MIV-UFAM-2020:}
+    \begin{column}{0.46\textwidth}
+      \textbf{Paleta IComp}
       \begin{itemize}
-        \item \hgreen{Verde} \texttt{\#00A551} — primário
-        \item \hnavy{Azul navy} \texttt{\#0D3049} — cabeçalhos
-        \item \textcolor{ufamTeal}{\textbf{Teal}} \texttt{\#176073} — separadores
-        \item \hred{Vermelho} \texttt{\#EC1C24} — alertas
+        \item \hteal{Teal} \texttt{\#286880}
+        \item \hlime{Lima} \texttt{\#A8C840}
+        \item \hnavy{Navy} \texttt{\#163A48}
       \end{itemize}
-      \vspace{0.5em}
-      {\small
-      \begin{tabular}{@{}lc@{}}
-        \toprule
-        {\color{ufamNavy}\textbf{Método}} &
-        {\color{ufamNavy}\textbf{Acc.\ (\%)}} \\
-        \midrule
-        Baseline & 87{,}8 \\
-        \rowcolor{ufamGreenLight}
-        \textbf{Proposta} & \textbf{92{,}8} \\
-        \bottomrule
-      \end{tabular}}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── Slide 3: Encerramento ─────────────────────────────────────────────────────
-\begin{frame}[noframenumbering, plain]
-  \begin{tikzpicture}[remember picture, overlay]
-    \fill[ufamNavy]
-      (current page.south west) rectangle (current page.north east);
-    \fill[ufamGreen]
-      (current page.north west)
-      rectangle ([yshift=-0.09\paperheight]current page.north east);
-    \fill[ufamTeal]
-      ([yshift=-0.09\paperheight]current page.north west)
-      rectangle ([yshift=-0.105\paperheight]current page.north east);
-    \fill[ufamGreen]
-      (current page.south west)
-      rectangle ([yshift=0.045\paperheight]current page.south east);
-    \fill[ufamNavyLight, opacity=0.35]
-      (current page.south east)
-      -- ([xshift=-0.45\paperwidth]current page.south east)
-      -- (current page.south east |- current page.center)
-      -- cycle;
-    \node[font=\LARGE\bfseries, text=ufamWhite]
-      at (current page.center) {Obrigado!};
-    \node[font=\normalsize, text=ufamGreenLight,
-          below=0.5cm of current page.center]
-      {Dúvidas e discussões};
-    \node[font=\small, text=ufamMidGray,
-          anchor=south, yshift=0.12\paperheight]
-      at (current page.south)
-      {\insertauthor\ \textbullet\ IComp/PPGI/UFAM};
+% ── Figura + legenda ────────────────────────────────────────────────────────
+\begin{frame}{Figura com legenda}
+  \centering
+  \begin{tikzpicture}[
+      box/.style={draw=icompTeal, rounded corners=2pt, fill=icompCanvas,
+                  align=center, font=\small, text=icompTealDark,
+                  minimum width=2.2cm, minimum height=0.8cm},
+      arr/.style={-{Stealth[length=4pt]}, line width=0.8pt, icompTeal}
+    ]
+    \node[box] (a) {Entrada};
+    \node[box, right=1.35cm of a] (b) {Modelo};
+    \node[box, right=1.35cm of b] (c) {Saída};
+    \draw[arr] (a) -- (b);
+    \draw[arr] (b) -- (c);
   \end{tikzpicture}
+
+  \vspace{0.7em}
+  {\footnotesize\textcolor{icompDarkGray}{%
+    \textbf{Figura 1.} Pipeline ilustrativo: entrada, modelo e saída.}}
+
+  \vspace{1.1em}
+  \begin{minipage}{0.88\textwidth}
+    \raggedright
+    \footnotesize\textcolor{icompMidGray}{%
+      Diagrama TikZ no corpo do slide, com legenda logo abaixo.
+      Em Beamer, numere manualmente com \texttt{\textbackslash textbf\{Figura~N.\}}.}
+  \end{minipage}
 \end{frame}
+
+% ── Tabela ──────────────────────────────────────────────────────────────────
+\begin{frame}{Tabela de resultados}
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Método} & \textbf{Acurácia (\%)} & \textbf{F1} \\
+    \midrule
+    Baseline   & 72,4 & 0,71 \\
+    Variante A & 78,1 & 0,76 \\
+    Variante B & 81,3 & 0,80 \\
+    Proposto   & 84,7 & 0,83 \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.75em}
+  {\footnotesize\textcolor{icompDarkGray}{%
+    \textbf{Tabela 1.} Comparação no conjunto de validação (valores fictícios).}}
+\end{frame}
+
+% ── Figura full-bleed (barra de legenda) ────────────────────────────────────
+\begin{frame}[plain]
+  \begin{icompfigure}{Figura 2. Exemplo de slide full-bleed com barra de legenda.}
+    \begin{tikzpicture}[x=1.05cm, y=0.72cm]
+      \draw[icompLine, line width=0.5pt] (0,0) grid[step=1] (11,6);
+      \draw[icompTeal, line width=1.6pt]
+        plot[smooth] coordinates
+          {(0,1.2) (1.4,2.1) (2.8,1.7) (4.2,3.3) (5.6,3.0)
+           (7.0,4.6) (8.4,4.2) (9.8,5.4) (11,5.1)};
+      \draw[icompLime, line width=1.6pt]
+        plot[smooth] coordinates
+          {(0,0.6) (1.4,1.0) (2.8,1.9) (4.2,2.2) (5.6,3.6)
+           (7.0,3.9) (8.4,4.9) (9.8,4.8) (11,5.8)};
+      \node[anchor=west, font=\footnotesize\bfseries, text=icompTeal]
+        at (0.2,5.55) {Teal};
+      \node[anchor=west, font=\footnotesize\bfseries, text=icompLimeDark]
+        at (1.7,5.55) {Lima};
+    \end{tikzpicture}
+  \end{icompfigure}
+\end{frame}
+
+\icompthanksframe
 
 \end{document}

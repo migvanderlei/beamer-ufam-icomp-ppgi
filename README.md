@@ -1,107 +1,113 @@
-# Template Beamer UFAM/IComp/PPGI
+# Template Beamer IComp / UFAM
 
-Template moderno para apresentações acadêmicas seguindo o
-**Manual de Identidade Visual UFAM (MIV-UFAM-2020-v3)**.
+Tema Beamer para apresentações do **Instituto de Computação (IComp)**,
+PPGI e UFAM. Paleta amostrada do logo IComp (teal + lima), tipografia
+sans-serif e layouts arejados.
 
 ## Arquivos
 
 | Arquivo | Descrição |
 |---|---|
-| `beamerthemeUFAM.sty` | Tema Beamer (cores, layouts, elementos) |
-| `main.tex` | Apresentação de exemplo (Exame de Qualificação) |
-| `logo_ufam.png` | ⚠️ Baixe manualmente (ver abaixo) |
-| `logo_icomp.png` | ⚠️ Baixe manualmente (ver abaixo) |
+| `beamerthemeUFAM.sty` | Tema principal (paleta IComp + layouts) |
+| `beamerthemeIComp.sty` | Alias (`\RequirePackage{beamerthemeUFAM}`) |
+| `main.tex` / `main.pdf` | Apresentação de exemplo (Exame de Qualificação) |
+| `example.tex` / `example.pdf` | Exemplo mínimo (capa, blocos, figura, tabela, full-bleed, encerramento) |
+| `logos/logo_icomp.png` | Logo IComp |
+| `logos/logo_ufam.png` | Brasão UFAM (fundos claros) |
+| `logos/logo_ufam_white.png` | Brasão UFAM branco (fundos teal escuros) |
 
-## Como obter os logos
-
-```bash
-# Logo UFAM
-wget -O logo_ufam.png "https://ufam.edu.br/images/marca_ufam/logo_ufam_horizontal.png"
-
-# Logo IComp (use o PNG do site)
-# https://icomp.ufam.edu.br/images/logo.png
-wget -O logo_icomp.png "https://icomp.ufam.edu.br/images/logo.png"
-```
-
-O tema detecta automaticamente se os arquivos existem e usa fallback
-textual caso contrário — **o PDF compila sem os logos**.
+Nos slides de conteúdo, o cabeçalho mantém o **IComp à esquerda** e a
+**UFAM à direita**, com linha teal/lima. A capa usa painel teal com
+autor, orientador(a) e data; a marca institucional fica nos logos.
 
 ## Como compilar
 
 ### Overleaf
-1. Crie novo projeto → faça upload de `beamerthemeUFAM.sty` e `main.tex`
-2. Faça upload dos logos (opcional)
-3. Clique em **Compile** — pronto
+1. Faça upload de todos os arquivos (incluindo `logos/`)
+2. Compile `main.tex` ou `example.tex` (duas vezes)
 
 ### Local
 ```bash
-pdflatex main.tex
-pdflatex main.tex   # segunda passagem para referências cruzadas
+pdflatex example.tex
+pdflatex example.tex
 ```
 
-## Paleta de Cores (MIV-UFAM-2020-v3)
+## Paleta IComp
 
-### Cores Primárias da Marca
 | Nome | Hex | Uso |
 |---|---|---|
-| `ufamGreen` | `#00A551` | Verde UFAM — Pantone 354 C |
-| `ufamRed` | `#EC1C24` | Vermelho — Pantone Bright Red C |
-| `ufamPink` | `#CD3E68` | Rosa — Pantone 191 C |
-| `ufamYellow` | `#FFF100` | Amarelo — Pantone 3955 C |
-| `ufamBlack` | `#231F20` | Preto — Pantone Neutral Black C |
+| `icompTeal` | `#286880` | Estrutura, linhas e painéis |
+| `icompLime` | `#A8C840` | Acentos, itens, destaques |
+| `icompTealDark` | `#1D5366` | Painéis escuros / títulos |
+| `icompRed` | `#C94B4B` | Alertas |
 
-### Paleta de Destaque (MIV p.20)
-| Nome | Hex | Pantone |
-|---|---|---|
-| `ufamNavy` | `#0D3049` | 7463 |
-| `ufamNavyUnit` | `#06304C` | — (assinaturas de unidades) |
-| `ufamTeal` | `#176073` | 7470 C |
-| `ufamOrange` | `#EB6C1D` | 1585 C |
-| `ufamPurplePPG` | `#5F2568` | 255 C (Programas de Pós-Grad.) |
-| `ufamAmber` | `#FAA040` | 1375 C |
+Aliases `ufam*` continuam disponíveis para slides antigos
+(`ufamNavy` → teal escuro, `ufamGreen` → lima, etc.).
 
-## Comandos Personalizados
+## Rodapé e metadados
 
 ```latex
-\hgreen{texto}   % destaque verde negrito
-\hnavy{texto}    % destaque azul navy negrito
-\hred{texto}     % destaque vermelho negrito
-
-\begin{ufambox}[Título opcional]
-  Conteúdo em verde (equivale a exampleblock)
-\end{ufambox}
-
-\begin{ufamalert}[Título opcional]
-  Conteúdo em vermelho (equivale a alertblock)
-\end{ufamalert}
+\author[M. Vanderlei]{Miguel Vanderlei de Oliveira}
+\institute[IComp · PPGI · UFAM]{...}   % short form no rodapé; capa usa logos
+\icompadvisor{Orientadora: Profª Drª Nome}
+\icompfooter{IComp · PPGI · UFAM}
+\date{Manaus, Julho de 2026}
 ```
 
-## Personalização Rápida
+Rodapé: **autor** \| unidade + contador **i/N**.
+Na capa: título → subtítulo → autor → orientador(a) → data.
 
-Para adaptar para outra dissertação/defesa, edite em `main.tex`:
+## Comandos
+
 ```latex
-\title{Seu título aqui}
+\hteal{texto}    % destaque teal
+\hlime{texto}    % destaque lima
+\hnavy{texto}    % destaque teal escuro
+\hred{texto}     % destaque vermelho
+\hgreen{texto}   % alias de \hlime
+
+\begin{icompbox}[Título]
+  Conteúdo em lima
+\end{icompbox}
+
+\begin{icompalert}[Título]
+  Conteúdo em vermelho
+\end{icompalert}
+
+% Slide full-bleed com barra de legenda (frame plain)
+\begin{frame}[plain]
+  \begin{icompfigure}{Figura N. Legenda}
+    \includegraphics[width=0.9\paperwidth]{figura}
+  \end{icompfigure}
+\end{frame}
+
+\icompthanksframe   % slide de encerramento
+```
+
+Aliases legados: `ufambox`, `ufamalert`, `ufamthanksframe`, `\ufamtitlesize`.
+
+## Personalização
+
+```latex
+\usepackage{beamerthemeIComp}   % ou beamerthemeUFAM
+\title{Seu título}
 \subtitle{Tipo de apresentação}
-\author{Seu Nome}
-\institute{Orientador + Programa + Instituto + Universidade}
+\author[Iniciais]{Seu Nome}
+\institute[IComp · PPGI · UFAM]{Instituto · Programa · Universidade}
+\icompadvisor{Orientador(a): ...}
+\icompfooter{IComp · PPGI · UFAM}
 \date{Cidade, Mês de Ano}
 ```
 
-## Tipografia Oficial (MIV-UFAM-2020)
+Títulos longos: `\icomptitlesize{large}` (ou `LARGE`) no preâmbulo.
 
-| Contexto | Fonte oficial | Equivalente LaTeX |
-|---|---|---|
-| Marca UFAM | Arial Rounded MT Bold | `helvet` (Helvetica) |
-| Assinaturas de unidades | Myriad Pro Bold/Condensed | `helvet` |
-| Corpo de documentos | Arial | `helvet` |
+## Tipografia
 
-O tema usa `\usepackage[scaled=0.92]{helvet}` como aproximação
-disponível no LaTeX padrão. No XeLaTeX/LuaLaTeX você pode usar
-Arial diretamente com `fontspec`.
+Helvetica (`helvet`). Com XeLaTeX/LuaLaTeX, dá para trocar por Inter
+ou Fira Sans via `fontspec`.
 
-## Referências
+## Links
 
-- Manual de Identidade Visual UFAM — MIV-UFAM-2020-v3.pdf
-- Site PPGI: https://ppgi.ufam.edu.br/
-- Site IComp: https://icomp.ufam.edu.br/
-- Site UFAM: https://ufam.edu.br/
+- [IComp](https://icomp.ufam.edu.br/)
+- [PPGI](https://ppgi.ufam.edu.br/)
+- [UFAM](https://ufam.edu.br/)
