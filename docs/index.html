@@ -349,12 +349,12 @@
       <ol class="steps">
         <li>Clone o repositório e entre na pasta do projeto.</li>
         <li>Edite <code>example.tex</code> (bloco <strong>METADADOS</strong>) com título, autor e contato.</li>
-        <li>Compile com pdfLaTeX <strong>duas vezes</strong>:</li>
+        <li>Compile com <code>make</code> (usa <code>latexmk</code> e roda as passes necessárias):</li>
       </ol>
       <pre class="code-block"><code>git clone https://github.com/migvanderlei/beamer-ufam-icomp-ppgi.git
 cd beamer-ufam-icomp-ppgi
-pdflatex example.tex
-pdflatex example.tex</code></pre>
+make          # example.pdf
+make all      # example.pdf + main.pdf</code></pre>
     </div>
 
     <p style="margin-top:1.5rem">

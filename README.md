@@ -18,6 +18,7 @@ não é um material institucional oficial.
 ```bash
 pdflatex example.tex
 pdflatex example.tex
+# ou: make
 ```
 
 [`main.tex`](main.tex) é um exemplo completo (exame de qualificação).
@@ -37,7 +38,7 @@ pdflatex example.tex
 | `main.tex` | Demo completa |
 | `logos/` | Logos IComp/UFAM + exemplos CNPq/CAPES/FAPEAM |
 | `docs/` | Site GitHub Pages |
-| `LICENSE` | MIT (código / exemplos) |
+| `Makefile` | Build local (`make` / `make all`) |
 
 ## Idioma (babel)
 
