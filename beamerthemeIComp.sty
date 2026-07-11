@@ -249,7 +249,10 @@
       rightskip=0.85cm]{footline}%
     \usebeamerfont{footline}%
     \textcolor{icompMidGray}{%
-      \insertshortauthor
+      % [] fecha o argumento opcional de \insertshortauthor (Beamer).
+      % Use \author[Nome curto]{Nome Completo} — o curto aparece só no rodapé
+      % dos slides de conteúdo (capa / divisores / agradecimentos são plain).
+      \insertshortauthor[]%
       \expandafter\ifstrempty\expandafter{\icompFooterText}{}{%
         \hspace{0.55em}\textcolor{icompLine}{|}\hspace{0.55em}%
         \icompFooterText

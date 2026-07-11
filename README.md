@@ -63,6 +63,7 @@ sobre os valores padrão.
 ## Comandos principais
 
 ```latex
+\author[S.\ Nome]{Seu Nome Completo}
 \orientador{Orientador(a): Prof.\ Dr.\ Nome}
 \contato{seu.email@icomp.ufam.edu.br}
 \rodape{texto opcional}              % complemento no rodapé (após o autor)
@@ -90,9 +91,11 @@ sobre os valores padrão.
 \agradecimentos
 ```
 
-Nos slides de conteúdo, o rodapé exibe o autor (`\insertshortauthor`) e a
-numeração `n/N`. O comando `\rodape{...}` acrescenta um texto opcional após o
-autor. Quadros com a opção `[plain]` não exibem rodapé.
+Nos slides de conteúdo, o rodapé exibe a **forma curta** do autor
+(`\author[S.\ Nome]{Nome Completo}`) e a numeração `n/N`. A forma longa
+aparece na capa e nos agradecimentos. O comando `\rodape{...}` acrescenta um
+texto opcional após o autor. Quadros `[plain]` (capa, divisores, agradecimentos)
+não exibem rodapé.
 
 ## Paleta de cores
 
