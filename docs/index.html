@@ -177,6 +177,37 @@
       border-top: 1px solid var(--line);
     }
 
+    .tabs {
+      display: flex;
+      gap: 0.35rem;
+      margin: 0 0 1.15rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tab {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-weight: 650;
+      font-size: 0.95rem;
+      padding: 0.65rem 1rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .tab:hover { color: var(--teal-dark); }
+
+    .tab[aria-selected="true"] {
+      color: var(--teal-dark);
+      border-bottom-color: var(--lime);
+    }
+
+    .tab-panel[hidden] { display: none; }
+
     .steps {
       display: grid;
       gap: 0.85rem;
@@ -210,6 +241,21 @@
       display: grid;
       place-items: center;
     }
+
+    .code-block {
+      margin-top: 0.85rem;
+      max-width: 42rem;
+      background: var(--teal-dark);
+      color: #e8f0f2;
+      border-radius: 2px;
+      padding: 0.9rem 1rem;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    .code-block code { color: inherit; }
 
     footer {
       border-top: 1px solid var(--line);
@@ -286,11 +332,31 @@
 
   <section class="section">
     <h2>Começar em 3 passos</h2>
-    <ol class="steps">
-      <li>Clone o repositório ou envie <code>beamerthemeIComp.sty</code>, <code>example.tex</code> e <code>logos/</code> para o Overleaf.</li>
-      <li>Preencha o bloco <strong>METADADOS</strong> em <code>example.tex</code>.</li>
-      <li>Compile com <strong>pdfLaTeX</strong> duas vezes.</li>
-    </ol>
+    <div class="tabs" role="tablist" aria-label="Como começar">
+      <button class="tab" role="tab" id="tab-overleaf" aria-controls="panel-overleaf" aria-selected="true" type="button">Overleaf</button>
+      <button class="tab" role="tab" id="tab-local" aria-controls="panel-local" aria-selected="false" type="button">Local</button>
+    </div>
+
+    <div class="tab-panel" role="tabpanel" id="panel-overleaf" aria-labelledby="tab-overleaf">
+      <ol class="steps">
+        <li>No Overleaf, crie um projeto e envie <code>beamerthemeIComp.sty</code>, <code>example.tex</code> e a pasta <code>logos/</code>.</li>
+        <li>Em Menu → <strong>Main document</strong>, escolha <code>example.tex</code>. Preencha o bloco <strong>METADADOS</strong>.</li>
+        <li>Compilador: <strong>pdfLaTeX</strong>. Compile <strong>duas vezes</strong> (sumário e total de slides).</li>
+      </ol>
+    </div>
+
+    <div class="tab-panel" role="tabpanel" id="panel-local" aria-labelledby="tab-local" hidden>
+      <ol class="steps">
+        <li>Clone o repositório e entre na pasta do projeto.</li>
+        <li>Edite <code>example.tex</code> (bloco <strong>METADADOS</strong>) com título, autor e contato.</li>
+        <li>Compile com pdfLaTeX <strong>duas vezes</strong>:</li>
+      </ol>
+      <pre class="code-block"><code>git clone https://github.com/migvanderlei/beamer-ufam-icomp-ppgi.git
+cd beamer-ufam-icomp-ppgi
+pdflatex example.tex
+pdflatex example.tex</code></pre>
+    </div>
+
     <p style="margin-top:1.5rem">
       Demo completa: <a href="main.pdf">main.pdf</a> ·
       Código: <a href="https://github.com/migvanderlei/beamer-ufam-icomp-ppgi">GitHub</a> ·
@@ -304,5 +370,27 @@
       <span>por <a href="https://github.com/migvanderlei">migvanderlei</a></span>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+      var panels = {
+        'tab-overleaf': document.getElementById('panel-overleaf'),
+        'tab-local': document.getElementById('panel-local')
+      };
+
+      function activate(tab) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          panels[t.id].hidden = !on;
+        });
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () { activate(tab); });
+      });
+    })();
+  </script>
 </body>
 </html>
