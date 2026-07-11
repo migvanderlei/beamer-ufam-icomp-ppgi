@@ -1,6 +1,6 @@
 % =============================================================================
-%  main.tex — Exemplo de apresentação (template IComp não oficial)
-%  Compile: pdflatex main.tex (2x)
+%  main.tex — Demonstração completa do template IComp (não oficial)
+%  Compile: pdflatex main.tex (2x)  ou  make main
 % =============================================================================
 \documentclass[aspectratio=169, 10pt, brazil]{beamer}
 
@@ -16,19 +16,17 @@
 % ---------------------------------------------------------------------------
 %  METADADOS — edite aqui
 % ---------------------------------------------------------------------------
-\title{Adaptação de Domínio Livre de Fonte em\\
-       Reconhecimento de Ações em Vídeo\\
-       Baseada em Protótipos Multicêntricos}
-\subtitle{Exame de Qualificação — Mestrado em Informática}
-\author[M. Vanderlei]{Miguel Vanderlei de Oliveira}
-\institute[IComp · PPGI · UFAM]{%
+\title{Título da Apresentação:\\
+       Subtítulo ou Linha Complementar}
+\subtitle{Tipo de apresentação — ex.: Exame de Qualificação / Seminário}
+\author{Seu Nome Completo}
+\institute[IComp · UFAM]{%
   Instituto de Computação — IComp\\
-  Programa de Pós-Graduação em Informática — PPGI · UFAM
+  Universidade Federal do Amazonas — UFAM
 }
-\orientador{Orientadora: Prof.\textsuperscript{a} Dr.\textsuperscript{a} Eulanda Miranda dos Santos}
-\contato{miguel.vanderlei@icomp.ufam.edu.br}
-\rodape{IComp · PPGI · UFAM}
-\date{Manaus, Julho de 2026}
+\orientador{Orientador(a): Prof.\ Dr.\ Nome do Orientador}
+\contato{seu.email@icomp.ufam.edu.br}
+\date{Manaus, Mês de 2026}
 
 % ---------------------------------------------------------------------------
 \begin{document}
@@ -54,76 +52,74 @@
 \section{Introdução e Motivação}
 % ============================================================================
 
-\begin{frame}{Reconhecimento de Ações em Vídeo}
+\begin{frame}{Contexto do Problema}
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \begin{itemize}
-        \item Tarefa fundamental da Visão Computacional
-        \item Backbone padrão: \hgreen{I3D} (Inflated 3D ConvNet)
-        \item Excelente acurácia em UCF101, HMDB51 etc.
+        \item Área ou domínio de estudo
+        \item Abordagem ou baseline de referência
+        \item Desempenho típico em cenários controlados
       \end{itemize}
       \vspace{0.8em}
-      \begin{block}{Problema — \textit{Domain Shift}}
-        Queda de desempenho ao mudar câmera, iluminação
-        ou estilo de execução entre domínios.
+      \begin{block}{Problema central}
+        Descreva o desafio principal: mudança de condições,
+        escassez de dados, restrições práticas etc.
       \end{block}
     \end{column}
     \begin{column}{0.38\textwidth}
       \centering
       \begin{tikzpicture}[node distance=0.9cm]
-        \node[draw=ufamNavy, fill=ufamLightGray, rounded corners=3pt,
-              align=center, font=\small\bfseries, text=ufamNavy,
+        \node[draw=icompTealDark, fill=icompCanvas, rounded corners=3pt,
+              align=center, font=\small\bfseries, text=icompTealDark,
               minimum width=2.8cm, minimum height=0.9cm] (src)
-          {Fonte\\(UCF101)};
-        \node[draw=ufamGreen, fill=ufamGreenLight, rounded corners=3pt,
-              align=center, font=\small\bfseries, text=ufamGreenDark,
+          {Domínio A};
+        \node[draw=icompLimeDark, fill=icompLimeSoft, rounded corners=3pt,
+              align=center, font=\small\bfseries, text=icompLimeDark,
               minimum width=2.8cm, minimum height=0.9cm, below=of src] (tgt)
-          {Alvo\\(HMDB51)};
-        \draw[-{Stealth}, line width=1.2pt, ufamRed, dashed]
-          (src) -- node[right, font=\tiny, text=ufamRed]
-          {$\downarrow$ acc.} (tgt);
+          {Domínio B};
+        \draw[-{Stealth}, line width=1.2pt, icompRed, dashed]
+          (src) -- node[right, font=\tiny, text=icompRed]
+          {$\downarrow$ desempenho} (tgt);
       \end{tikzpicture}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Do UDA ao SFDA}
+\begin{frame}{Motivação}
   \begin{columns}[T]
     \begin{column}{0.47\textwidth}
-      \begin{alertblock}{UDA — Limitação}
-        Exige dados da fonte durante a adaptação.\\
-        Inviável por \textbf{privacidade} e \textbf{armazenamento}.
-      \end{alertblock}
+      \begin{alerta}{Limitação atual}
+        Resuma por que as soluções existentes são insuficientes
+        (privacidade, custo, generalização etc.).
+      \end{alerta}
     \end{column}
     \begin{column}{0.47\textwidth}
-      \begin{exampleblock}{SFDA — Solução}
-        (1) Pré-treinamento supervisionado na \textbf{fonte}\\
-        (2) Adaptação no \textbf{alvo} sem dados da fonte
-      \end{exampleblock}
+      \begin{destaque}{Direção proposta}
+        (1) Etapa preliminar no domínio de origem\\
+        (2) Adaptação ou extensão no domínio de interesse
+      \end{destaque}
     \end{column}
   \end{columns}
-  \vspace{-0.2em}
-  \begin{block}{Estado da Arte — \textbf{CleanAdapt} (Dasgupta et al., 2025)}
-    Trata adaptação como aprendizado com rótulos ruidosos.
-    Seleciona fração $\tau$ de menor perda por classe (\emph{small-loss trick}).\\[0.3em]
-    \hred{Limitação:} trade-off \textbf{qualidade} $\times$ \textbf{cobertura} —
-    penaliza classes minoritárias e cauda longa.
+  \vspace{0.4em}
+  \begin{block}{Estado da arte (exemplo)}
+    Cite o trabalho de referência e a lacuna que motivou a proposta.\\[0.3em]
+    \hred{Limitação:} trade-off entre qualidade e cobertura —
+    ou outro ponto frágil a ser tratado.
   \end{block}
 \end{frame}
 
 \begin{frame}{Objetivos}
   \begin{block}{Objetivo Geral}
-    Propor método de SFVDA com \hgreen{protótipos multicêntricos} que supere
-    a limitação de cobertura do CleanAdapt via \textbf{re-rotulagem geométrica}
-    no espaço latente.
+    Formule o objetivo geral em uma ou duas frases, destacando a
+    ideia central da contribuição.
   \end{block}
   \vspace{0.5em}
   \textbf{Objetivos Específicos:}
   \begin{enumerate}
-    \item Analisar o trade-off qualidade $\times$ cobertura do CleanAdapt
-    \item Propor agrupamento multicêntrico com re-amostragem balanceada
-    \item Implementar re-rotulagem por votação majoritária (KNN + K-Means)
-    \item Investigar estratégias \textit{imbalance-aware} para cauda longa
+    \item Analisar a limitação do método de referência
+    \item Propor a abordagem principal do trabalho
+    \item Implementar e avaliar a proposta em cenários controlados
+    \item Investigar extensões e limitações remanescentes
   \end{enumerate}
 \end{frame}
 
@@ -135,22 +131,22 @@
   \begin{columns}[T]
     \begin{column}{0.47\textwidth}
       \begin{enumerate}
-        \item \textbf{Aprendizado Profundo / CNN}\\
-              \small Entropia cruzada; SGD; overfitting
-        \item \textbf{Arquitetura I3D}\\
-              \small Inflated 3D ConvNet; pré-treino Kinetics
-        \item \textbf{SFDA / SFVDA}\\
-              \small Dois estágios; sem dados fonte
+        \item \textbf{Conceito A}\\
+              \small Definição breve; notação essencial
+        \item \textbf{Conceito B}\\
+              \small Modelo, arquitetura ou formalismo
+        \item \textbf{Conceito C}\\
+              \small Premissas e restrições do cenário
       \end{enumerate}
     \end{column}
     \begin{column}{0.47\textwidth}
       \begin{enumerate}\setcounter{enumi}{3}
-        \item \textbf{Pseudo-rótulos e Small-Loss}\\
-              \small Efeito memorização (Arpit et al., 2017)
-        \item \textbf{Estrutura Prof.–Aluno + EMA}\\
-              \small $\theta_T \leftarrow \alpha\theta_T + (1-\alpha)\theta_S$
-        \item \textbf{K-Means e Protótipos}\\
-              \small Agrupamento latente; viés de densidade
+        \item \textbf{Técnica D}\\
+              \small Heurística ou algoritmo de apoio
+        \item \textbf{Técnica E}\\
+              \small Estrutura de treinamento / otimização
+        \item \textbf{Técnica F}\\
+              \small Agrupamento, protótipos ou similar
       \end{enumerate}
     \end{column}
   \end{columns}
@@ -164,24 +160,20 @@
   \small\renewcommand{\arraystretch}{1.3}
   \begin{tabular}{@{}llp{3.5cm}@{}}
     \toprule
-    \rowcolor{ufamNavy}
+    \rowcolor{icompTealDark}
     \color{white}\textbf{Método} &
     \color{white}\textbf{Estratégia} &
     \color{white}\textbf{Limitação} \\
     \midrule
-    SHOT          & Centroides + inf.\ mútua   & Só imagens \\
-    \rowcolor{ufamLightGray}
-    ATCON         & Consistência temporal      & Rótulos globais inalterados \\
-    STHC          & Banco de memória histórico & Sem topologia de classes \\
-    \rowcolor{ufamLightGray}
-    BMD           & Agrupamento balanceado     & Estima distrib.\ do alvo \\
-    DCPL          & Matriz de transição ruído  & Rótulos fixos \\
-    \rowcolor{ufamLightGray}
-    \textbf{CleanAdapt} & \textbf{Small-loss + Prof.–Aluno} &
-      \textbf{Trade-off qualidade $\times$ qtd.} \\
-    \rowcolor{ufamGreenLight}
-    \textbf{Proposta} & \textbf{Protótipos multicêntricos} &
-      Agrupamento em cauda longa \\
+    Método A      & Estratégia resumida          & Limitação típica \\
+    \rowcolor{icompCanvas}
+    Método B      & Outra linha de ataque        & Outra limitação \\
+    Método C      & Variante intermediária       & Escopo restrito \\
+    \rowcolor{icompCanvas}
+    Método D      & Abordagem de referência      & Trade-off residual \\
+    \rowcolor{icompLimeSoft}
+    \textbf{Proposta} & \textbf{Ideia central} &
+      Ponto ainda em aberto \\
     \bottomrule
   \end{tabular}
 \end{frame}
@@ -194,81 +186,77 @@
   \centering
   \begin{tikzpicture}[
       node distance=0.65cm and 1.0cm,
-      box/.style={draw=ufamNavy, rounded corners=3pt, fill=ufamLightGray,
+      box/.style={draw=icompTealDark, rounded corners=3pt, fill=icompCanvas,
                   minimum width=2.0cm, minimum height=0.65cm,
                   align=center, font=\scriptsize},
-      gbox/.style={box, fill=ufamGreenLight, draw=ufamGreenDark},
-      tbox/.style={box, fill=ufamTealLight, draw=ufamTeal},
-      arr/.style={-{Stealth[length=4.5pt]}, line width=0.9pt, ufamNavy},
-      garr/.style={arr, ufamGreen},
+      gbox/.style={box, fill=icompLimeSoft, draw=icompLimeDark},
+      tbox/.style={box, fill=icompTealSoft, draw=icompTeal},
+      arr/.style={-{Stealth[length=4.5pt]}, line width=0.9pt, icompTealDark},
+      garr/.style={arr, icompLimeDark},
     ]
-    \node[tbox] (src)  {Fonte I3D};
-    \node[box, right=of src]  (prof) {Professor\\(aug.\ fraco)};
-    \node[box, below=0.5cm of prof] (aluno) {Aluno\\(aug.\ forte)};
-    \node[gbox, right=of prof] (dcl)  {$\mathcal{D}_{cl}$\\confiável};
-    \node[gbox, right=of aluno] (dun) {$\mathcal{D}_{un}$\\incerto};
-    \node[tbox, right=of dcl]  (proto) {Protótipos\\K-Means};
-    \node[gbox, right=of dun]  (relabel) {Re-rotulagem\\KNN};
-    \node[box, right=1.2cm of proto] (train) {Treino\\$\mathcal{D}_{cl}\cup\mathcal{D}_{un}^{\text{rel}}$};
-    \draw[arr] (src)   -- (prof);
-    \draw[arr] (prof)  -- node[above,font=\tiny]{$\tau$} (dcl);
-    \draw[arr] (prof)  -- node[below,font=\tiny]{alta perda} (dun);
-    \draw[arr] (dcl)   -- (proto);
+    \node[tbox] (src)  {Entrada};
+    \node[box, right=of src]  (mod) {Módulo\\principal};
+    \node[box, below=0.5cm of mod] (aux) {Módulo\\auxiliar};
+    \node[gbox, right=of mod] (sel)  {Seleção\\confiável};
+    \node[gbox, right=of aux] (unc) {Conjunto\\incerto};
+    \node[tbox, right=of sel]  (proto) {Representações};
+    \node[gbox, right=of unc]  (relabel) {Refinamento};
+    \node[box, right=1.2cm of proto] (train) {Treino\\final};
+    \draw[arr] (src)   -- (mod);
+    \draw[arr] (mod)  -- node[above,font=\tiny]{filtro} (sel);
+    \draw[arr] (mod)  -- node[below,font=\tiny]{resto} (unc);
+    \draw[arr] (sel)   -- (proto);
     \draw[arr] (proto) -- (relabel);
-    \draw[arr] (dun)   -- (relabel);
-    \draw[arr] (dcl.east) to[bend left=18] (train.north);
+    \draw[arr] (unc)   -- (relabel);
+    \draw[arr] (sel.east) to[bend left=18] (train.north);
     \draw[arr] (relabel)  -- (train);
     \draw[garr] (train.south) to[bend right=25]
-      node[below,font=\tiny]{backprop} (aluno.south);
-    \draw[garr] (aluno.west) to[bend right=15]
-      node[left,font=\tiny]{EMA} (prof.west);
+      node[below,font=\tiny]{atualização} (aux.south);
+    \draw[garr] (aux.west) to[bend right=15]
+      node[left,font=\tiny]{feedback} (mod.west);
   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Os Quatro Passos da Re-rotulagem}
+\begin{frame}{Etapas do Método}
   \begin{enumerate}
-    \item \textbf{Subconjunto confiável} — Professor filtra fração $\tau$ de
-          menor perda por classe $\Rightarrow$ $\mathcal{D}_{cl}$.
-          Complemento: $\mathcal{D}_{un} = \mathcal{D}_t \setminus \mathcal{D}_{cl}$.
+    \item \textbf{Preparação} — defina o conjunto inicial e os critérios
+          de filtragem ou amostragem.
 
-    \item \textbf{Protótipos multicêntricos} — K-Means com $K$ centroides sobre
-          embeddings $\ell_2$-normalizados de $\mathcal{D}_{cl}^c$ para cada
-          classe $c \in \mathcal{Y}$.
+    \item \textbf{Representação} — construa protótipos, embeddings ou
+          outra estrutura intermediária no espaço latente.
 
-    \item \textbf{Conjunto global} $\mathcal{P} = \bigcup_c \mathcal{P}_c$ —
-          métrica \textbf{Mahalanobis} (selecionada via Optuna).
+    \item \textbf{Refinamento} — aplique a regra de atualização
+          (votação, limiar, otimização etc.).
 
-    \item \textbf{Re-rotulagem por votação}
-          $\hat{y}_i^* = \arg\max_c |\{\mu \in \mathcal{N}_k(x_i,\mathcal{P})
-          : \text{classe}(\mu)=c\}|$
-
-          Aluno treina sobre $\mathcal{D}_{cl} \cup \mathcal{D}_{un}^{\text{rel}}$.
+    \item \textbf{Treinamento} — combine o subconjunto confiável com
+          as instâncias refinadas e atualize o modelo.
   \end{enumerate}
   \vspace{0.4em}
-  \begin{exampleblock}{Desacoplamento chave}
-    $\tau$ controla apenas o \emph{tamanho do âncora}, não a cobertura do treino.
-  \end{exampleblock}
+  \begin{destaque}{Ideia-chave}
+    Separe claramente o que controla a qualidade da âncora
+    daquilo que define a cobertura do treinamento.
+  \end{destaque}
 \end{frame}
 
-\begin{frame}{Robustez — Distribuições de Cauda Longa}
+\begin{frame}{Limitações e Extensões}
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Problema}
-        K-Means tem \textbf{viés de densidade}: classes majoritárias
-        dominam os centroides.
-      \end{alertblock}
+      \begin{alerta}{Problema residual}
+        Descreva um viés, falha de cobertura ou cenário
+        em que o método ainda degrada.
+      \end{alerta}
       \vspace{0.5em}
-      \begin{exampleblock}{Re-amostragem Balanceada}
-        $n_{\min} = \min_{c} |\mathcal{D}_{cl}^c|$ instâncias por classe
-        $\Rightarrow$ todas as classes contribuem igualmente para $\mathcal{P}$.
-      \end{exampleblock}
+      \begin{destaque}{Mitigação proposta}
+        Estratégia simples para atenuar o problema
+        (reamostragem, normalização, curricular etc.).
+      \end{destaque}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \begin{block}{Direções Futuras}
+      \begin{block}{Direções futuras}
         \begin{itemize}
-          \item Amostragem curricular — ISFDA
-          \item Interseção de vizinhanças — Robust NN
-          \item Classificador normalizado $\ell_2$ — ICPR
+          \item Extensão A
+          \item Extensão B
+          \item Comparação ampliada
         \end{itemize}
       \end{block}
     \end{column}
@@ -279,42 +267,38 @@
 \section{Resultados Preliminares}
 % ============================================================================
 
-\begin{frame}{Resultados — UCF101 $\leftrightarrow$ HMDB51}
+\begin{frame}{Resultados — Cenário ilustrativo}
   \centering\small\renewcommand{\arraystretch}{1.15}
   \begin{tabular}{@{}lcc@{}}
     \toprule
-    \rowcolor{ufamNavy}
+    \rowcolor{icompTealDark}
     \color{white}\textbf{Método} &
-    \color{white}\textbf{UCF$\!\to\!$HMDB (\%)} &
-    \color{white}\textbf{HMDB$\!\to\!$UCF (\%)} \\
+    \color{white}\textbf{Cenário 1 (\%)} &
+    \color{white}\textbf{Cenário 2 (\%)} \\
     \midrule
-    CleanAdapt+TS (baseline) & 87{,}78 & 96{,}67 \\
-    \rowcolor{ufamLightGray}
-    Aumento linear de $\tau$  & 87{,}50 & 96{,}50 \\
-    ATCON$^\dagger$           & 79{,}70 & 85{,}30 \\
-    \rowcolor{ufamLightGray}
-    MTRAN$^\ddagger$          & 92{,}20 & 95{,}30 \\
+    Baseline                     & 80{,}00 & 90{,}00 \\
+    \rowcolor{icompCanvas}
+    Variante A                   & 82{,}50 & 91{,}00 \\
+    Variante B                   & 85{,}00 & 93{,}00 \\
     \midrule
-    \rowcolor{ufamGreenLight}
-    \textbf{Protótipos (proposta)} &
-      \textbf{92{,}78} & \textbf{98{,}25} \\
+    \rowcolor{icompLimeSoft}
+    \textbf{Proposta} &
+      \textbf{88{,}00} & \textbf{95{,}00} \\
     \bottomrule
-    \multicolumn{3}{l}{\tiny $^\dagger$ Backbone TRN;\ \
-    $^\ddagger$ Transformer multimodal}
   \end{tabular}
-  \vspace{0.2em}
+  \vspace{0.4em}
   \begin{columns}[T]
     \begin{column}{0.47\textwidth}
-      \begin{exampleblock}{UCF $\to$ HMDB}
-        \textbf{+5,00 p.p.}\ sobre baseline\\
-        (direção mais difícil; alvo desbalanceado)
-      \end{exampleblock}
+      \begin{destaque}{Cenário 1}
+        Ganho ilustrativo sobre o baseline\\
+        (substitua pelos seus números)
+      \end{destaque}
     \end{column}
     \begin{column}{0.47\textwidth}
-      \begin{exampleblock}{HMDB $\to$ UCF}
-        \textbf{+1,58 p.p.}\ sobre baseline\\
-        Competitivo com Transformers via I3D
-      \end{exampleblock}
+      \begin{destaque}{Cenário 2}
+        Segundo eixo de comparação\\
+        (métrica e protocolo à escolha)
+      \end{destaque}
     \end{column}
   \end{columns}
 \end{frame}
@@ -322,40 +306,40 @@
 \begin{frame}{Perguntas de Pesquisa}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.47\textwidth}
-      \begin{block}{PP1 — Sensibilidade ao $\tau$}
+      \begin{block}{PP1 — Sensibilidade}
         \begin{itemize}
-          \item Proposta: $\tau$ regula âncora, não cobertura
-          \item Melhor UCF$\!\to\!$HMDB com $\tau\!=\!0{,}2$
-          \item Âncora pequeno + re-rotulagem = suficiente
+          \item Hipótese sobre o hiperparâmetro principal
+          \item Evidência preliminar
+          \item Interpretação breve
         \end{itemize}
       \end{block}
     \end{column}
     \begin{column}{0.47\textwidth}
-      \begin{block}{PP2 — K$>$1 vs K$=$1}
+      \begin{block}{PP2 — Variante do método}
         \begin{itemize}
-          \item K$>$1 supera K$=$1 em até +1,94 p.p.\ em $\mathcal{D}_{un}$
-          \item Múltiplos centroides capturam sub-modos intra-classe
+          \item Comparação entre configurações
+          \item Quando a variante mais rica ajuda
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Epic-Kitchens}{Limitação em distribuições de cauda longa}
+\begin{frame}{Cenário desafiador}{Limitação observada}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.47\textwidth}
-      \begin{alertblock}{Resultado}
-        Baseline supera proposta nos 6 cenários, com lacuna de até
-        \textbf{16 p.p.}
-      \end{alertblock}
+      \begin{alerta}{Resultado}
+        Descreva o cenário em que a proposta ainda
+        não supera o baseline.
+      \end{alerta}
     \end{column}
     \begin{column}{0.47\textwidth}
       \begin{block}{Diagnóstico}
-        Viés de densidade do K-Means e pseudo-rótulos iniciais ruidosos.
+        Hipótese sobre a causa (viés, ruído, desbalanceamento).
       \end{block}
-      \begin{exampleblock}{Direção}
-        Estratégias \textit{imbalance-aware} nos próximos passos.
-      \end{exampleblock}
+      \begin{destaque}{Direção}
+        Estratégias a investigar nos próximos passos.
+      \end{destaque}
     \end{column}
   \end{columns}
 \end{frame}
@@ -369,22 +353,36 @@
     \begin{column}{0.47\textwidth}
       \textbf{Contribuições:}
       \begin{itemize}
-        \item Re-rotulagem geométrica multicêntrica
-        \item +5 p.p.\ sobre SOTA em UCF$\leftrightarrow$HMDB
-        \item Desacoplamento âncora/cobertura via $\tau$
-        \item \hgreen{Artigo aceito no BRACIS 2026}
+        \item Contribuição metodológica principal
+        \item Evidência empírica preliminar
+        \item Análise de limitações
+        \item Produto acadêmico previsto (artigo, relatório etc.)
       \end{itemize}
     \end{column}
     \begin{column}{0.47\textwidth}
-      \textbf{Próximos Passos:}
+      \textbf{Próximos passos:}
       \begin{enumerate}
-        \item Validar re-amostragem no Epic-Kitchens
-        \item Amostragem curricular (ISFDA)
-        \item Interseção de vizinhanças (Robust NN)
-        \item Comparação ampliada + redação final (2027)
+        \item Validar a mitigação no cenário difícil
+        \item Ampliar a comparação experimental
+        \item Consolidar a redação final
+        \item Submissão / defesa (prazo)
       \end{enumerate}
     \end{column}
   \end{columns}
+\end{frame}
+
+% ── Referências ──────────────────────────────────────────────────────────────
+\begin{frame}[allowframebreaks]{Referências}
+  \begin{thebibliography}{9}
+    \bibitem{exemplo}
+      Autor~A., Autor~B.
+      \newblock Título do trabalho de referência.
+      \newblock \emph{Conferência / Periódico}, 2026.
+    \bibitem{exemplo2}
+      Autor~C.
+      \newblock Outro trabalho relacionado.
+      \newblock \emph{Workshop / ArXiv}, 2025.
+  \end{thebibliography}
 \end{frame}
 
 % ── Slide Final ──────────────────────────────────────────────────────────────

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Beamer IComp / UFAM — template não oficial</title>
-  <meta name="description" content="Template Beamer não oficial para IComp / PPGI / UFAM. Paleta teal + lima, Overleaf-ready." />
+  <meta name="description" content="Template Beamer não oficial para apresentações acadêmicas no IComp / PPGI / UFAM." />
   <link rel="icon" href="assets/logo_icomp.png" type="image/png" />
   <style>
     :root {
@@ -13,18 +13,21 @@
       --lime: #a8c840;
       --canvas: #f7f9f8;
       --text: #17282e;
-      --muted: #74858b;
+      --muted: #5f7178;
       --line: #dde5e4;
       --white: #ffffff;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { font-size: 18px; }
+
     body {
       font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
       color: var(--text);
       background: var(--canvas);
-      line-height: 1.55;
+      line-height: 1.6;
+      font-size: 1.05rem;
     }
 
     a { color: var(--teal); text-underline-offset: 0.15em; }
@@ -39,63 +42,64 @@
     }
 
     .hero-copy {
-      padding: clamp(2.5rem, 6vw, 5rem);
+      padding: clamp(2.75rem, 6vw, 5.5rem);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 1.25rem;
-      max-width: 38rem;
+      gap: 1.35rem;
+      max-width: 40rem;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.85rem;
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       color: var(--teal-dark);
       letter-spacing: 0.02em;
     }
 
-    .brand img { height: 2rem; width: auto; }
+    .brand img { height: 2.35rem; width: auto; }
 
     .eyebrow {
-      font-size: 0.8rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
     }
 
     h1 {
-      font-size: clamp(2rem, 4.2vw, 3.1rem);
+      font-size: clamp(2.35rem, 4.6vw, 3.55rem);
       line-height: 1.12;
       color: var(--teal-dark);
       font-weight: 800;
-      max-width: 14ch;
+      max-width: 16ch;
     }
 
     .lede {
       color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 36ch;
+      font-size: 1.2rem;
+      line-height: 1.55;
+      max-width: 38ch;
     }
 
     .cta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 0.5rem;
+      gap: 0.85rem;
+      margin-top: 0.55rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.7rem 1.15rem;
+      padding: 0.85rem 1.35rem;
       border-radius: 2px;
       font-weight: 650;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       text-decoration: none;
       border: 2px solid transparent;
       transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
@@ -127,34 +131,36 @@
     }
 
     .hero-visual img {
-      width: min(100%, 520px);
+      width: min(100%, 540px);
       border-radius: 4px;
       box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
       border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .section {
-      padding: clamp(3rem, 7vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+      padding: clamp(3.25rem, 7vw, 5.75rem) clamp(1.5rem, 5vw, 4rem);
       max-width: 1100px;
       margin: 0 auto;
     }
 
     .section h2 {
-      font-size: 1.55rem;
+      font-size: 1.85rem;
       color: var(--teal-dark);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.9rem;
+      font-weight: 750;
     }
 
-    .section p {
+    .section > p {
       color: var(--muted);
+      font-size: 1.1rem;
       max-width: 58ch;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.65rem;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
+      gap: 1.35rem;
     }
 
     .card-img {
@@ -171,8 +177,8 @@
     }
 
     .card-img figcaption {
-      padding: 0.75rem 0.9rem;
-      font-size: 0.85rem;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
       color: var(--muted);
       border-top: 1px solid var(--line);
     }
@@ -180,7 +186,7 @@
     .tabs {
       display: flex;
       gap: 0.35rem;
-      margin: 0 0 1.15rem;
+      margin: 0 0 1.35rem;
       border-bottom: 1px solid var(--line);
     }
 
@@ -191,8 +197,8 @@
       color: var(--muted);
       font: inherit;
       font-weight: 650;
-      font-size: 0.95rem;
-      padding: 0.65rem 1rem;
+      font-size: 1.1rem;
+      padding: 0.75rem 1.1rem;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       margin-bottom: -1px;
@@ -210,10 +216,10 @@
 
     .steps {
       display: grid;
-      gap: 0.85rem;
+      gap: 0.95rem;
       counter-reset: step;
       list-style: none;
-      max-width: 42rem;
+      max-width: 46rem;
     }
 
     .steps li {
@@ -221,47 +227,55 @@
       background: var(--white);
       border: 1px solid var(--line);
       border-left: 3px solid var(--lime);
-      padding: 0.9rem 1rem 0.9rem 2.75rem;
+      padding: 1.05rem 1.15rem 1.05rem 3.1rem;
       position: relative;
       color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.55;
     }
 
     .steps li::before {
       content: counter(step);
       position: absolute;
-      left: 0.85rem;
-      top: 0.9rem;
-      width: 1.25rem;
-      height: 1.25rem;
+      left: 0.95rem;
+      top: 1.1rem;
+      width: 1.4rem;
+      height: 1.4rem;
       border-radius: 2px;
       background: var(--teal);
       color: var(--white);
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       font-weight: 700;
       display: grid;
       place-items: center;
     }
 
     .code-block {
-      margin-top: 0.85rem;
-      max-width: 42rem;
+      margin-top: 1rem;
+      max-width: 46rem;
       background: var(--teal-dark);
       color: #e8f0f2;
       border-radius: 2px;
-      padding: 0.9rem 1rem;
+      padding: 1.05rem 1.15rem;
       font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 0.85rem;
-      line-height: 1.5;
+      font-size: 0.95rem;
+      line-height: 1.55;
       overflow-x: auto;
     }
 
     .code-block code { color: inherit; }
 
+    .section-links {
+      margin-top: 1.75rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
     footer {
       border-top: 1px solid var(--line);
-      padding: 1.75rem clamp(1.5rem, 5vw, 4rem) 2.5rem;
+      padding: 2rem clamp(1.5rem, 5vw, 4rem) 2.75rem;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
 
     footer .inner {
@@ -269,11 +283,12 @@
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
+      gap: 0.85rem 1.5rem;
       justify-content: space-between;
     }
 
     @media (max-width: 900px) {
+      html { font-size: 17px; }
       .hero {
         grid-template-columns: 1fr;
         background: var(--canvas);
@@ -296,14 +311,15 @@
         <span>IComp · PPGI · UFAM</span>
       </div>
       <p class="eyebrow">Template Beamer · não oficial</p>
-      <h1>Apresentações com a cara do IComp</h1>
+      <h1>Apresentações acadêmicas no IComp</h1>
       <p class="lede">
-        Tema Beamer em teal + lima, pronto para Overleaf e pdfLaTeX.
-        Starter em português, strings padrão via babel.
+        Tema Beamer não oficial, inspirado nas cores institucionais do IComp,
+        pensado para uso no Overleaf em seminários, defesas e demais
+        apresentações no âmbito do IComp / PPGI / UFAM.
       </p>
       <div class="cta">
-        <a class="btn btn-primary" href="https://github.com/migvanderlei/beamer-ufam-icomp-ppgi">Ver no GitHub</a>
-        <a class="btn btn-ghost" href="example.pdf">Baixar example.pdf</a>
+        <a class="btn btn-primary" href="#como-utilizar">Usar no Overleaf</a>
+        <a class="btn btn-ghost" href="https://github.com/migvanderlei/beamer-ufam-icomp-ppgi">Repositório no GitHub</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -313,7 +329,10 @@
 
   <section class="section">
     <h2>Prévia</h2>
-    <p>Capa, divisor de seção e slide de agradecimentos — a identidade visual do tema.</p>
+    <p>
+      Exemplos da identidade visual do tema: capa, divisor de seção e slide
+      de agradecimentos.
+    </p>
     <div class="grid">
       <figure class="card-img">
         <img src="assets/preview-cover.png" alt="Capa" />
@@ -330,44 +349,65 @@
     </div>
   </section>
 
-  <section class="section">
-    <h2>Começar em 3 passos</h2>
-    <div class="tabs" role="tablist" aria-label="Como começar">
+  <section class="section" id="como-utilizar">
+    <h2>Como utilizar</h2>
+    <p>
+      A forma recomendada de uso é pelo <strong>Overleaf</strong>. A compilação
+      local permanece disponível para quem preferir trabalhar offline.
+    </p>
+    <div class="tabs" role="tablist" aria-label="Ambiente de uso">
       <button class="tab" role="tab" id="tab-overleaf" aria-controls="panel-overleaf" aria-selected="true" type="button">Overleaf</button>
       <button class="tab" role="tab" id="tab-local" aria-controls="panel-local" aria-selected="false" type="button">Local</button>
     </div>
 
     <div class="tab-panel" role="tabpanel" id="panel-overleaf" aria-labelledby="tab-overleaf">
       <ol class="steps">
-        <li>No Overleaf, crie um projeto e envie <code>beamerthemeIComp.sty</code>, <code>example.tex</code> e a pasta <code>logos/</code>.</li>
-        <li>Em Menu → <strong>Main document</strong>, escolha <code>example.tex</code>. Preencha o bloco <strong>METADADOS</strong>.</li>
-        <li>Compilador: <strong>pdfLaTeX</strong>. Compile <strong>duas vezes</strong> (sumário e total de slides).</li>
+        <li>
+          Crie um novo projeto no Overleaf e envie <code>beamerthemeIComp.sty</code>,
+          <code>example.tex</code> e a pasta <code>logos/</code>. Em planos com sincronização
+          GitHub, também é possível importar o repositório diretamente
+          (New Project → Import from GitHub).
+        </li>
+        <li>
+          Em Menu → <strong>Main document</strong>, selecione <code>example.tex</code>
+          e preencha o bloco <strong>METADADOS</strong> com título, autor e demais informações.
+        </li>
+        <li>
+          Utilize o compilador <strong>pdfLaTeX</strong> e compile o documento
+          <strong>duas vezes</strong>, a fim de atualizar o sumário e a numeração total de slides.
+        </li>
       </ol>
     </div>
 
     <div class="tab-panel" role="tabpanel" id="panel-local" aria-labelledby="tab-local" hidden>
       <ol class="steps">
-        <li>Clone o repositório e entre na pasta do projeto.</li>
-        <li>Edite <code>example.tex</code> (bloco <strong>METADADOS</strong>) com título, autor e contato.</li>
-        <li>Compile com <code>make</code> (usa <code>latexmk</code> e roda as passes necessárias):</li>
+        <li>Clone o repositório e acesse o diretório do projeto.</li>
+        <li>
+          Edite <code>example.tex</code>, preenchendo o bloco <strong>METADADOS</strong>
+          (título, autor, orientador, contato etc.).
+        </li>
+        <li>
+          Compile com <code>make</code> (preferencialmente via <code>latexmk</code>,
+          que executa as passagens necessárias):
+        </li>
       </ol>
       <pre class="code-block"><code>git clone https://github.com/migvanderlei/beamer-ufam-icomp-ppgi.git
 cd beamer-ufam-icomp-ppgi
-make          # example.pdf
-make all      # example.pdf + main.pdf</code></pre>
+make          # gera example.pdf
+make all      # gera example.pdf e main.pdf</code></pre>
     </div>
 
-    <p style="margin-top:1.5rem">
-      Demo completa: <a href="main.pdf">main.pdf</a> ·
-      Código: <a href="https://github.com/migvanderlei/beamer-ufam-icomp-ppgi">GitHub</a> ·
+    <p class="section-links">
+      Demonstração completa: <a href="main.pdf">main.pdf</a> ·
+      Código-fonte: <a href="https://github.com/migvanderlei/beamer-ufam-icomp-ppgi">GitHub</a> ·
       Licença: <a href="https://github.com/migvanderlei/beamer-ufam-icomp-ppgi/blob/main/LICENSE">MIT</a>
     </p>
   </section>
 
   <footer>
     <div class="inner">
-      <span>Template <strong>não oficial</strong> — não é material institucional da UFAM/IComp.</span>
-      <span>por <a href="https://github.com/migvanderlei">migvanderlei</a></span>
+      <span>Template <strong>não oficial</strong> — não constitui material institucional da UFAM ou do IComp.</span>
+      <span>Mantido por <a href="https://github.com/migvanderlei">migvanderlei</a></span>
     </div>
   </footer>
 

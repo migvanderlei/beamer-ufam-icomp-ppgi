@@ -242,17 +242,23 @@
 
 \setbeamertemplate{footline}{%
   \leavevmode
-  \hbox{%
-    \begin{beamercolorbox}[wd=0.70\paperwidth, ht=0.38cm, dp=0.22cm,
-        leftskip=0.72cm]{footline}%
-      \usebeamerfont{footline}\textcolor{icompMidGray}{\icompFooterText}%
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=0.30\paperwidth, ht=0.38cm, dp=0.22cm,
-        rightskip=0.72cm, right]{footline}%
-      \usebeamerfont{footline}%
-      \textcolor{icompMidGray}{\insertframenumber/\inserttotalframenumber}%
-    \end{beamercolorbox}%
-  }%
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,
+      ht=0.45cm, dp=0.32cm,
+      leftskip=0.85cm,
+      rightskip=0.85cm]{footline}%
+    \usebeamerfont{footline}%
+    \textcolor{icompMidGray}{%
+      \insertshortauthor
+      \expandafter\ifstrempty\expandafter{\icompFooterText}{}{%
+        \hspace{0.55em}\textcolor{icompLine}{|}\hspace{0.55em}%
+        \icompFooterText
+      }%
+    }%
+    \hfill
+    \textcolor{icompMidGray}{%
+      \insertframenumber\,/\,\inserttotalframenumber}%
+  \end{beamercolorbox}%
 }
 
 % ---------------------------------------------------------------------------

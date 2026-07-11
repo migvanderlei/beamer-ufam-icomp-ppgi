@@ -1,52 +1,54 @@
 # Template Beamer IComp / UFAM (não oficial)
 
-Template Beamer **não oficial** para apresentações do IComp / PPGI / UFAM.
-A identidade visual é inspirada nas cores do logo do IComp (teal + lima) —
-não é um material institucional oficial.
+Template Beamer **não oficial** destinado a apresentações acadêmicas no âmbito do
+IComp / PPGI / UFAM. A identidade visual inspira-se nas cores do logotipo do IComp
+(teal e lima); trata-se de material de uso comunitário, **sem vínculo institucional oficial**.
 
 **Autor:** [migvanderlei](https://github.com/migvanderlei)  
-**Licença:** [MIT](LICENSE) (código e exemplos) · logos de terceiros: ver abaixo  
-**Site:** [GitHub Pages](https://migvanderlei.github.io/beamer-ufam-icomp-ppgi/)
+**Licença:** [MIT](LICENSE) (código e exemplos) · quanto aos logotipos, ver a seção correspondente  
+**Página do projeto:** [GitHub Pages](https://migvanderlei.github.io/beamer-ufam-icomp-ppgi/)
 
-## Começar rápido
+## Como usar
 
-1. Abra [`example.tex`](example.tex)
-2. Preencha o bloco **METADADOS** no topo
-3. Edite / remova os slides por seção
-4. Compile com **pdfLaTeX** (duas vezes)
+### Overleaf (recomendado)
+
+1. Crie um novo projeto e envie `beamerthemeIComp.sty`, `example.tex` e a pasta `logos/`.
+   Em planos com sincronização GitHub, o repositório também pode ser importado
+   diretamente (New Project → Import from GitHub).
+2. Em Menu → **Main document**, selecione `example.tex`.
+3. Preencha o bloco **METADADOS** e adapte os slides conforme necessário.
+4. Utilize o compilador **pdfLaTeX** e compile o documento duas vezes
+   (atualização do sumário e da numeração total de slides).
+
+O arquivo [`main.tex`](main.tex) contém uma demonstração mais completa
+da estrutura típica de uma apresentação acadêmica.
+
+### Compilação local
 
 ```bash
 pdflatex example.tex
 pdflatex example.tex
-# ou: make
+# alternativa: make
 ```
 
-[`main.tex`](main.tex) é um exemplo completo (exame de qualificação).
-
-### Overleaf
-
-1. Novo projeto → upload de `beamerthemeIComp.sty`, `example.tex` e a pasta `logos/`
-2. Menu → **Main document:** `example.tex`
-3. Compilador: **pdfLaTeX** (compile 2× para o sumário)
-
-## Arquivos
+## Organização do repositório
 
 | Arquivo | Descrição |
 |---|---|
-| `example.tex` | Starter — preencha e apresente |
-| `beamerthemeIComp.sty` | Tema |
-| `main.tex` | Demo completa |
-| `logos/` | Logos IComp/UFAM + exemplos CNPq/CAPES/FAPEAM |
-| `docs/` | Site GitHub Pages |
-| `Makefile` | Build local (`make` / `make all`) |
+| `example.tex` | Documento inicial — base recomendada para novas apresentações |
+| `beamerthemeIComp.sty` | Definição do tema Beamer |
+| `main.tex` | Demonstração completa |
+| `logos/` | Logotipos IComp/UFAM e exemplos de agências de fomento |
+| `docs/` | Página do projeto (GitHub Pages) |
+| `Makefile` | Compilação local (`make` / `make all`) |
 
 ## Idioma (babel)
 
-Textos padrão do slide final (`Obrigado!` / `Thank you!`, `Apoio` / `Support`)
-seguem o **babel**:
+Os textos padrão do slide final (`Obrigado!` / `Thank you!`, `Apoio` / `Support`)
+acompanham o idioma definido via **babel**:
 
 ```latex
-% Português (padrão do starter)
+% Português (configuração do documento inicial)
 \documentclass[aspectratio=169, 11pt, brazil]{beamer}
 \usepackage[brazil]{babel}
 
@@ -55,14 +57,15 @@ seguem o **babel**:
 \usepackage[english]{babel}
 ```
 
-Overrides (`\textofinal{...}`, `\rotuloapoio{...}`) têm prioridade.
+Comandos de sobrescrita (`\textofinal{...}`, `\rotuloapoio{...}`) têm precedência
+sobre os valores padrão.
 
-## Comandos úteis
+## Comandos principais
 
 ```latex
 \orientador{Orientador(a): Prof.\ Dr.\ Nome}
 \contato{seu.email@icomp.ufam.edu.br}
-\rodape{texto opcional}              % extra no rodapé (após o autor)
+\rodape{texto opcional}              % complemento no rodapé (após o autor)
 
 \tamanhotitulo{large}
 \divisoresfalse
@@ -87,32 +90,36 @@ Overrides (`\textofinal{...}`, `\rotuloapoio{...}`) têm prioridade.
 \agradecimentos
 ```
 
-Rodapé dos slides de conteúdo: autor (`\insertshortauthor`) + `n/N`.
-Use `\rodape{...}` só se quiser um texto extra. Frames `[plain]` não exibem rodapé.
+Nos slides de conteúdo, o rodapé exibe o autor (`\insertshortauthor`) e a
+numeração `n/N`. O comando `\rodape{...}` acrescenta um texto opcional após o
+autor. Quadros com a opção `[plain]` não exibem rodapé.
 
-## Paleta
+## Paleta de cores
 
-| Nome | Hex | Uso |
+| Nome | Hex | Função |
 |---|---|---|
-| `icompTeal` | `#286880` | Estrutura |
-| `icompLime` | `#A8C840` | Acentos |
-| `icompTealDark` | `#1D5366` | Painéis / títulos |
+| `icompTeal` | `#286880` | Elementos estruturais |
+| `icompLime` | `#A8C840` | Destaques |
+| `icompTealDark` | `#1D5366` | Painéis e títulos |
 | `icompRed` | `#C94B4B` | Alertas |
 
-## Logos
+## Logotipos
 
-- **IComp / UFAM:** marcas institucionais só para identidade visual deste template não oficial.
-- **CNPq / CAPES / FAPEAM** em `logos/`: exemplos para o slide de agradecimentos.
-  Substitua pelos oficiais e siga os manuais de marca de cada agência.
+- **IComp / UFAM:** marcas institucionais empregadas apenas para a identidade
+  visual deste template não oficial.
+- **CNPq / CAPES / FAPEAM** (em `logos/`): arquivos de exemplo para o slide de
+  agradecimentos. Substitua-os pelos arquivos oficiais e observe os manuais de
+  marca de cada agência.
 
-## Links
+## Referências
 
-- [Site do template](https://migvanderlei.github.io/beamer-ufam-icomp-ppgi/)
+- [Página do template](https://migvanderlei.github.io/beamer-ufam-icomp-ppgi/)
 - [IComp](https://icomp.ufam.edu.br/)
 - [PPGI](https://ppgi.ufam.edu.br/)
 - [UFAM](https://ufam.edu.br/)
 
-## CI
+## Integração contínua
 
-GitHub Actions compila `example.tex` e `main.tex` (pdfLaTeX ×2) e um smoke test
-com babel `english` a cada push/PR em `main`.
+A cada *push* ou *pull request* na branch `main`, o GitHub Actions compila
+`example.tex` e `main.tex` (pdfLaTeX, duas passagens) e executa um teste
+auxiliar com babel `english`.
