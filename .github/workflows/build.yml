@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  demos:
+    name: Compile demos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: pdfLaTeX (example, main, english smoke)
+        uses: xu-cheng/texlive-action@v2
+        with:
+          scheme: small
+          packages: >-
+            beamer pgf xcolor etoolbox
+            helvetic
+            babel babel-portuges babel-english
+            booktabs amsmath amsfonts amssymb
+            hyperref multirow colortbl
+            cm-super latex-bin tools
+            oberdiek graphics
+          run: |
+            set -euo pipefail
+
+            build() {
+              local src="$1"
+              pdflatex -interaction=nonstopmode -halt-on-error "$src"
+              pdflatex -interaction=nonstopmode -halt-on-error "$src"
+            }
+
+            build example.tex
+            build main.tex
+
+            # English defaults via babel (no \textofinal override)
+            sed \
+              -e 's/\[aspectratio=169, 11pt, brazil\]/[aspectratio=169, 11pt, english]/' \
+              -e 's/\\usepackage\[brazil\]{babel}/\\usepackage[english]{babel}/' \
+              -e '/\\textofinal{/d' \
+              example.tex > example-en.tex
+            build example-en.tex

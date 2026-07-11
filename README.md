@@ -61,7 +61,7 @@ Overrides (`\textofinal{...}`, `\rotuloapoio{...}`) têm prioridade.
 ```latex
 \orientador{Orientador(a): Prof.\ Dr.\ Nome}
 \contato{seu.email@icomp.ufam.edu.br}
-\rodape{IComp · PPGI · UFAM}
+\rodape{texto opcional}              % extra no rodapé (após o autor)
 
 \tamanhotitulo{large}
 \divisoresfalse
@@ -86,7 +86,8 @@ Overrides (`\textofinal{...}`, `\rotuloapoio{...}`) têm prioridade.
 \agradecimentos
 ```
 
-Rodapé dos slides de conteúdo: `\rodape` + `n/N`. Frames `[plain]` não exibem rodapé.
+Rodapé dos slides de conteúdo: autor (`\insertshortauthor`) + `n/N`.
+Use `\rodape{...}` só se quiser um texto extra. Frames `[plain]` não exibem rodapé.
 
 ## Paleta
 
@@ -109,3 +110,8 @@ Rodapé dos slides de conteúdo: `\rodape` + `n/N`. Frames `[plain]` não exibem
 - [IComp](https://icomp.ufam.edu.br/)
 - [PPGI](https://ppgi.ufam.edu.br/)
 - [UFAM](https://ufam.edu.br/)
+
+## CI
+
+GitHub Actions compila `example.tex` e `main.tex` (pdfLaTeX ×2) e um smoke test
+com babel `english` a cada push/PR em `main`.
