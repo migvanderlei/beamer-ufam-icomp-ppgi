@@ -7,3 +7,9 @@
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+*.vrb
+*.bbl
+*.blg
+langtest.*
+*~
+.DS_Store

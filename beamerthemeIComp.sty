@@ -1,2 +1,601 @@
-% Compatibilidade: redireciona para o tema IComp (arquivo histórico UFAM)
-\RequirePackage{beamerthemeUFAM}
+% =============================================================================
+%  beamerthemeIComp.sty
+%  Tema Beamer não oficial — IComp / PPGI / UFAM
+%
+%  Paleta inspirada nas cores do logo IComp (teal + lima).
+%  Não é material institucional oficial.
+%  Autor: migvanderlei (https://github.com/migvanderlei)
+%  Compatível com pdflatex / lualatex / xelatex + Overleaf
+%
+%  Idioma (babel): padrões de texto em brazil/portuguese ou english.
+% =============================================================================
+
+\ProvidesPackage{beamerthemeIComp}[2026/07/10 v2.1 Unofficial IComp Beamer Theme]
+
+\mode<presentation>
+
+% ---------------------------------------------------------------------------
+%  DEPENDÊNCIAS
+% ---------------------------------------------------------------------------
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{graphicx}
+\RequirePackage{etoolbox}
+\@ifpackageloaded{hyperref}{}{\RequirePackage{hyperref}}
+\RequirePackage[scaled=0.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usetikzlibrary{calc, positioning, shapes.geometric, backgrounds, arrows.meta}
+
+% ---------------------------------------------------------------------------
+%  PALETA — inspirada nas cores do logo IComp (teal + lima)
+% ---------------------------------------------------------------------------
+\definecolor{icompLime}{HTML}{A8C840}
+\definecolor{icompLimeDark}{HTML}{789426}
+\definecolor{icompLimeSoft}{HTML}{F2F6E8}
+\definecolor{icompTeal}{HTML}{286880}
+\definecolor{icompTealDark}{HTML}{1D5366}
+\definecolor{icompTealSoft}{HTML}{EAF2F4}
+\definecolor{icompTealMid}{HTML}{508098}
+\definecolor{icompRed}{HTML}{C94B4B}
+\definecolor{icompRedSoft}{HTML}{F9EEEE}
+\definecolor{icompWhite}{HTML}{FFFFFF}
+\definecolor{icompCanvas}{HTML}{F7F9F8}
+\definecolor{icompLine}{HTML}{DDE5E4}
+\definecolor{icompMidGray}{HTML}{74858B}
+\definecolor{icompDarkGray}{HTML}{405259}
+\definecolor{icompText}{HTML}{17282E}
+
+% Aliases legados ufam* → paleta IComp
+\colorlet{ufamGreen}{icompLime}
+\colorlet{ufamGreenDark}{icompLimeDark}
+\colorlet{ufamGreenLight}{icompLimeSoft}
+\colorlet{ufamGreenSoft}{icompLimeSoft}
+\colorlet{ufamLime}{icompLime}
+\colorlet{ufamLimeGreen}{icompLime}
+\colorlet{ufamYellowGreen}{icompLime}
+\colorlet{ufamTeal}{icompTeal}
+\colorlet{ufamTealLight}{icompTealSoft}
+\colorlet{ufamTealSoft}{icompTealSoft}
+\colorlet{ufamTealUnit}{icompTeal}
+\colorlet{ufamNavy}{icompTealDark}
+\colorlet{ufamNavyLight}{icompTealMid}
+\colorlet{ufamNavySoft}{icompTealMid}
+\colorlet{ufamNavyUnit}{icompTealDark}
+\colorlet{ufamRed}{icompRed}
+\colorlet{ufamWhite}{icompWhite}
+\colorlet{ufamCanvas}{icompCanvas}
+\colorlet{ufamLightGray}{icompCanvas}
+\colorlet{ufamLine}{icompLine}
+\colorlet{ufamMidGray}{icompMidGray}
+\colorlet{ufamDarkGray}{icompDarkGray}
+\colorlet{ufamText}{icompText}
+\colorlet{ufamTextDark}{icompText}
+\colorlet{ufamBlack}{icompText}
+\colorlet{ufamPink}{icompRed}
+\colorlet{ufamYellow}{icompLime}
+\colorlet{ufamOrange}{icompRed}
+\colorlet{ufamGold}{icompLime}
+\colorlet{ufamAmber}{icompLime}
+\colorlet{ufamPurple}{icompTealDark}
+\colorlet{ufamPurplePPG}{icompTealDark}
+\colorlet{ufamFuchsia}{icompRed}
+
+% ---------------------------------------------------------------------------
+%  METADADOS / LOGOS
+% ---------------------------------------------------------------------------
+\newcommand{\orientador}[1]{\def\icompAdvisorText{#1}}
+\newcommand{\contato}[1]{\def\icompContactEmail{#1}}
+\newcommand{\rodape}[1]{\def\icompFooterText{#1}}
+\def\icompAdvisorText{}
+\def\icompContactEmail{}
+\def\icompFooterText{}
+\newcommand{\advisor}[1]{\orientador{#1}}
+\newcommand{\email}[1]{\contato{#1}}
+\newcommand{\icompadvisor}[1]{\orientador{#1}}
+\newcommand{\ufamadvisor}[1]{\orientador{#1}}
+\newcommand{\icompfooter}[1]{\rodape{#1}}
+\newcommand{\ufamfooter}[1]{\rodape{#1}}
+
+\newlength{\icompLogoHeight}
+\setlength{\icompLogoHeight}{0.72cm}
+
+\newcommand{\ICompIncludeLogo}[3][\icompLogoHeight]{%
+  \IfFileExists{logos/#2}{%
+    \includegraphics[height=#1]{logos/#2}%
+  }{%
+    \IfFileExists{#2}{%
+      \includegraphics[height=#1]{#2}%
+    }{%
+      \IfFileExists{../logos/#2}{%
+        \includegraphics[height=#1]{../logos/#2}%
+      }{%
+        \tikz[baseline=-0.5ex]{%
+          \node[fill=icompWhite, rounded corners=2pt,
+                inner sep=3pt, font=\scriptsize\bfseries, text=icompTealDark]
+            {\detokenize{#3}};%
+        }%
+      }%
+    }%
+  }%
+}
+
+% ---------------------------------------------------------------------------
+%  FONTES
+% ---------------------------------------------------------------------------
+\usefonttheme{professionalfonts}
+\usefonttheme[onlymath]{serif}
+
+% ---------------------------------------------------------------------------
+%  CORES DO BEAMER
+% ---------------------------------------------------------------------------
+\usecolortheme{default}
+
+\setbeamercolor{structure}{fg=icompTeal}
+\setbeamercolor{normal text}{fg=icompText, bg=icompWhite}
+\setbeamercolor{alerted text}{fg=icompRed}
+\setbeamercolor{example text}{fg=icompLimeDark}
+
+\setbeamercolor{palette primary}{fg=icompWhite, bg=icompTeal}
+\setbeamercolor{palette secondary}{fg=icompTealDark, bg=icompLime}
+\setbeamercolor{palette tertiary}{fg=icompWhite, bg=icompTealDark}
+\setbeamercolor{palette quaternary}{fg=icompTealDark, bg=icompCanvas}
+
+\setbeamercolor{frametitle}{fg=icompTealDark, bg=icompWhite}
+\setbeamercolor{framesubtitle}{fg=icompTeal}
+
+\setbeamercolor{title}{fg=icompTealDark, bg=icompWhite}
+\setbeamercolor{subtitle}{fg=icompTeal}
+\setbeamercolor{author}{fg=icompText}
+\setbeamercolor{institute}{fg=icompMidGray}
+\setbeamercolor{date}{fg=icompMidGray}
+
+\setbeamercolor{block title}{fg=icompTealDark, bg=icompTealSoft}
+\setbeamercolor{block body}{fg=icompText, bg=icompTealSoft}
+\setbeamercolor{block title alerted}{fg=icompRed, bg=icompRedSoft}
+\setbeamercolor{block body alerted}{fg=icompText, bg=icompRedSoft}
+\setbeamercolor{block title example}{fg=icompLimeDark, bg=icompLimeSoft}
+\setbeamercolor{block body example}{fg=icompText, bg=icompLimeSoft}
+
+\setbeamercolor{item}{fg=icompLime}
+\setbeamercolor{subitem}{fg=icompTeal}
+\setbeamercolor{subsubitem}{fg=icompDarkGray}
+
+\setbeamercolor{footline}{fg=icompDarkGray, bg=icompWhite}
+\setbeamercolor{headline}{fg=icompTealDark, bg=icompWhite}
+\setbeamercolor{separation line}{bg=icompLime}
+
+\setbeamercolor{section in toc}{fg=icompTealDark}
+\setbeamercolor{subsection in toc}{fg=icompTeal}
+\setbeamercolor{section in toc shaded}{fg=icompMidGray}
+
+% ---------------------------------------------------------------------------
+%  TIPOGRAFIA
+% ---------------------------------------------------------------------------
+\setbeamerfont{title}{size=\fontsize{16}{19}\selectfont, series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize, series=\normalfont}
+\setbeamerfont{author}{size=\normalsize, series=\bfseries}
+\setbeamerfont{institute}{size=\small, series=\normalfont}
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{frametitle}{size=\fontsize{14.5}{17.5}\selectfont, series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\footnotesize, series=\normalfont}
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+\setbeamerfont{footline}{size=\fontsize{6.5}{8}\selectfont}
+\setbeamerfont{section in toc}{series=\bfseries, size=\normalsize}
+\setbeamerfont{subsection in toc}{series=\normalfont, size=\small}
+
+\newcommand{\tamanhotitulo}[1]{%
+  \setbeamerfont{title}{size=\csname #1\endcsname, series=\bfseries}%
+}
+\newcommand{\titlesize}[1]{\tamanhotitulo{#1}}
+\newcommand{\icomptitlesize}[1]{\tamanhotitulo{#1}}
+\newcommand{\ufamtitlesize}[1]{\tamanhotitulo{#1}}
+
+% ---------------------------------------------------------------------------
+%  ASSINATURA SUPERIOR — IComp à esquerda, UFAM à direita
+% ---------------------------------------------------------------------------
+\newcommand{\ICompBrandBand}{%
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,
+      ht=0.78cm, dp=0pt,
+      leftskip=0.72cm, rightskip=0.72cm]{headline}%
+    \vspace{0.10cm}%
+    \makebox[\dimexpr\paperwidth-1.44cm\relax][s]{%
+      \raisebox{0pt}[0.50cm][0pt]{%
+        \ICompIncludeLogo[0.48cm]{logo_icomp.png}{IComp}}%
+      \hfill
+      \raisebox{-0.02cm}[0.54cm][0pt]{%
+        \ICompIncludeLogo[0.54cm]{logo_ufam.png}{UFAM}}%
+    }%
+  \end{beamercolorbox}%
+  \makebox[0pt][l]{%
+    \textcolor{icompTeal}{\rule{0.78\paperwidth}{1.15pt}}%
+    \textcolor{icompLime}{\rule{0.22\paperwidth}{1.15pt}}}%
+}
+
+% ---------------------------------------------------------------------------
+%  CABEÇALHO / TÍTULO / RODAPÉ
+% ---------------------------------------------------------------------------
+\setbeamertemplate{headline}{\ICompBrandBand}
+
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip%
+  \vspace{0.42em}%
+  \begin{beamercolorbox}[%
+      wd=\textwidth,
+      leftskip=0pt, rightskip=0pt]{frametitle}%
+    \begin{minipage}[t]{\dimexpr\textwidth\relax}
+      \hbox{%
+        \textcolor{icompLime}{\rule{3pt}{1.15em}}%
+        \hspace{0.55em}%
+        {\usebeamerfont{frametitle}\insertframetitle}}%
+      \ifx\insertframesubtitle\@empty\else%
+        \vspace{0.18em}%
+        \hspace*{0.90em}%
+        {\usebeamerfont{framesubtitle}%
+         \textcolor{icompMidGray}{\insertframesubtitle}}%
+      \fi%
+    \end{minipage}%
+  \end{beamercolorbox}%
+  \vspace{0.55em}%
+}
+
+\setbeamertemplate{footline}{%
+  \leavevmode
+  \hbox{%
+    \begin{beamercolorbox}[wd=0.70\paperwidth, ht=0.38cm, dp=0.22cm,
+        leftskip=0.72cm]{footline}%
+      \usebeamerfont{footline}\textcolor{icompMidGray}{\icompFooterText}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.30\paperwidth, ht=0.38cm, dp=0.22cm,
+        rightskip=0.72cm, right]{footline}%
+      \usebeamerfont{footline}%
+      \textcolor{icompMidGray}{\insertframenumber/\inserttotalframenumber}%
+    \end{beamercolorbox}%
+  }%
+}
+
+% ---------------------------------------------------------------------------
+%  SLIDE DE CAPA
+% ---------------------------------------------------------------------------
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[icompCanvas]
+      (current page.south west) rectangle (current page.north east);
+
+    \fill[icompWhite]
+      (current page.north west)
+      rectangle ([yshift=-1.35cm]current page.north east);
+    \fill[icompTeal]
+      ([yshift=-1.35cm]current page.north west)
+      rectangle ([xshift=0.78\paperwidth,yshift=-1.39cm]current page.north west);
+    \fill[icompLime]
+      ([xshift=0.78\paperwidth,yshift=-1.35cm]current page.north west)
+      rectangle ([yshift=-1.39cm]current page.north east);
+
+    \node[anchor=west, inner sep=0pt]
+      at ([xshift=0.85cm, yshift=-0.68cm]current page.north west){%
+        \ICompIncludeLogo[0.78cm]{logo_icomp.png}{IComp}%
+      };
+    \node[anchor=east, inner sep=0pt]
+      at ([xshift=-0.85cm, yshift=-0.68cm]current page.north east){%
+        \ICompIncludeLogo[0.90cm]{logo_ufam.png}{UFAM}%
+      };
+
+    \fill[icompTealDark, rounded corners=10pt]
+      ([xshift=0.70cm,yshift=-1.78cm]current page.north west)
+      rectangle
+      ([xshift=-0.70cm,yshift=0.72cm]current page.south east);
+
+    \node[anchor=north west,
+          text width=0.82\paperwidth,
+          inner sep=0pt, align=left]
+      at ([xshift=1.15cm, yshift=-2.15cm]current page.north west){%
+        {\usebeamerfont{title}\textcolor{icompWhite}{\inserttitle}\par}%
+        \vspace{0.55em}%
+        {\color{icompLime}\rule{1.2cm}{2.2pt}}\par
+        \vspace{0.45em}%
+        {\usebeamerfont{subtitle}\textcolor{icompLime}{\insertsubtitle}\par}%
+      };
+
+    \node[anchor=south west,
+          text width=0.82\paperwidth,
+          inner sep=0pt, align=left]
+      at ([xshift=1.15cm, yshift=0.95cm]current page.south west){%
+        {\usebeamerfont{author}\textcolor{icompWhite}{\insertauthor}\par}%
+        \ifstrempty{\icompAdvisorText}{}{%
+          \vspace{0.28em}%
+          {\fontsize{9}{11}\selectfont
+           \textcolor{icompTealSoft}{\icompAdvisorText}\par}%
+        }%
+        \vspace{0.28em}%
+        {\fontsize{8}{10}\selectfont
+         \textcolor{icompTealSoft}{\insertinstitute}\par}%
+        \vspace{0.40em}%
+        {\usebeamerfont{date}\textcolor{icompLimeSoft}{\insertdate}\par}%
+      };
+  \end{tikzpicture}%
+}
+
+% ---------------------------------------------------------------------------
+%  SLIDE DIVISOR DE SEÇÃO
+% ---------------------------------------------------------------------------
+\newif\ificompDivisores
+\icompDivisorestrue
+\newcommand{\divisorestrue}{\icompDivisorestrue}
+\newcommand{\divisoresfalse}{\icompDivisoresfalse}
+
+\AtBeginSection[]{%
+  \ificompDivisores
+    \begin{frame}[noframenumbering, plain]%
+      \begin{tikzpicture}[remember picture, overlay]
+        \fill[icompCanvas]
+          (current page.south west) rectangle (current page.north east);
+
+        \fill[icompTeal]
+          (current page.south west)
+          rectangle ([xshift=0.30\paperwidth]current page.north west);
+
+        \fill[icompLime]
+          ([xshift=0.30\paperwidth]current page.south west)
+          rectangle ([xshift=0.312\paperwidth]current page.north west);
+
+        \node[anchor=west, inner sep=0pt]
+          at ([xshift=0.42cm, yshift=-0.70cm]current page.north west){%
+            \ICompIncludeLogo[0.52cm]{logo_icomp_white.png}{IComp}%
+          };
+
+        \node[anchor=east, inner sep=0pt]
+          at ([xshift=-0.78cm, yshift=-0.70cm]current page.north east){%
+            \ICompIncludeLogo[0.72cm]{logo_ufam.png}{UFAM}%
+          };
+
+        \node[font=\fontsize{72}{72}\selectfont\bfseries,
+              text=icompWhite, opacity=0.16, anchor=center]
+          at ([xshift=0.15\paperwidth]current page.west |- current page.center)
+          {\two@digits{\value{section}}};
+
+        \node[anchor=west,
+              text width=0.58\paperwidth, align=left,
+              text=icompTealDark,
+              font=\fontsize{22}{26}\selectfont\bfseries]
+          at ([xshift=0.38\paperwidth]current page.west |- current page.center)
+          {\insertsectionhead};
+
+        \fill[icompLime, rounded corners=1pt]
+          ([xshift=0.38\paperwidth,yshift=-0.72cm]
+            current page.west |- current page.center)
+          rectangle
+          ([xshift=0.38\paperwidth+1.15cm,yshift=-0.77cm]
+            current page.west |- current page.center);
+      \end{tikzpicture}%
+      \null
+    \end{frame}%
+  \fi
+}
+
+% ---------------------------------------------------------------------------
+%  FIGURA AMPLA — \begin{figuraampla}{Legenda} ... \end{figuraampla}
+% ---------------------------------------------------------------------------
+\newenvironment{figuraampla}[1]{%
+  \def\icompFigureCaption{#1}%
+  \begin{center}
+}{%
+  \end{center}
+  \vspace{0.55em}%
+  \noindent
+  {\footnotesize\textcolor{icompDarkGray}{\icompFigureCaption}\par}%
+}
+\newenvironment{bigfigure}[1]{\begin{figuraampla}{#1}}{\end{figuraampla}}
+\newenvironment{icompfigure}[1]{\begin{figuraampla}{#1}}{\end{figuraampla}}
+\newenvironment{ufamfigure}[1]{\begin{figuraampla}{#1}}{\end{figuraampla}}
+
+% ---------------------------------------------------------------------------
+%  SLIDE FINAL — agradecimentos (sem subtítulo)
+%
+%    \textofinal{Obrigado!}
+%    \contato{seu.email@ufam.edu.br}
+%    \apoio{ \imgapoio[height=0.55cm]{logo_cnpq.png} ... }
+%    \agradecimentos
+% ---------------------------------------------------------------------------
+\newif\ificompThanksTitleSet
+\newif\ificompThanksLabelSet
+
+\newcommand{\titulofinal}[1]{%
+  \def\icompThanksTitle{#1}%
+  \icompThanksTitleSettrue
+}
+\newcommand{\textofinal}[1]{\titulofinal{#1}}
+\newcommand{\rodapefinal}[1]{\def\icompThanksFooter{#1}}
+\newcommand{\rotuloapoio}[1]{%
+  \def\icompThanksLogosLabel{#1}%
+  \icompThanksLabelSettrue
+}
+\newcommand{\alturaapoio}[1]{\def\icompThanksLogoHeight{#1}}
+
+\def\icompThanksTitle{Obrigado!}
+\def\icompThanksLogosLabel{Apoio}
+\def\icompThanksLogoHeight{0.55cm}
+\def\icompThanksApoio{}
+\def\icompThanksFooter{}
+\newsavebox{\icompThanksBox}
+
+% Babel: defaults PT-BR / EN via \languagename (não usa \iflanguage — instável com Beamer)
+\newcommand{\ICompApplyBabelDefaults}{%
+  \ificompThanksTitleSet\else
+    \ifdefstring{\languagename}{english}{%
+      \def\icompThanksTitle{Thank you!}%
+    }{%
+      \def\icompThanksTitle{Obrigado!}%
+    }%
+  \fi
+  \ificompThanksLabelSet\else
+    \ifdefstring{\languagename}{english}{%
+      \def\icompThanksLogosLabel{Support}%
+    }{%
+      \def\icompThanksLogosLabel{Apoio}%
+    }%
+  \fi
+}
+\AtBeginDocument{\ICompApplyBabelDefaults}
+
+\newcommand{\ICompGraphic}[2][]{%
+  \IfFileExists{logos/#2}{%
+    \includegraphics[#1]{logos/#2}%
+  }{%
+    \IfFileExists{#2}{%
+      \includegraphics[#1]{#2}%
+    }{%
+      \IfFileExists{../logos/#2}{%
+        \includegraphics[#1]{../logos/#2}%
+      }{%
+        \tikz[baseline=-0.5ex]{%
+          \node[fill=icompWhite, rounded corners=2pt,
+                inner sep=3pt, font=\scriptsize\bfseries, text=icompTealDark]
+            {\detokenize{#2}};%
+        }%
+      }%
+    }%
+  }%
+}
+
+% \imgapoio[height=...]{arquivo} — default = \alturaapoio
+\newcommand{\imgapoio}{%
+  \@ifnextchar[\icomp@imgapoio@opt{\icomp@imgapoio@opt[height=\icompThanksLogoHeight]}%
+}
+\def\icomp@imgapoio@opt[#1]#2{%
+  \raisebox{-0.5\height}{\ICompGraphic[#1]{#2}}%
+  \hspace{1.15em}%
+}
+
+\newcommand{\apoio}[1]{\def\icompThanksApoio{#1}}
+
+\newcommand{\ICompRenderThanksLogos}{%
+  \expandafter\ifstrempty\expandafter{\icompThanksApoio}{%
+  }{%
+    {\footnotesize\textcolor{icompMidGray}{\icompThanksLogosLabel}\par}%
+    \vspace{0.45em}%
+    \mbox{\icompThanksApoio}%
+    \par\vspace{0.65em}%
+  }%
+}
+
+\newcommand{\ICompRenderThanksFooter}{%
+  \expandafter\ifstrempty\expandafter{\icompThanksFooter}{%
+    {\small\color{icompMidGray}\insertauthor}%
+    \expandafter\ifstrempty\expandafter{\icompContactEmail}{}{%
+      \\[5pt]%
+      {\footnotesize\color{icompTeal}%
+        \href{mailto:\icompContactEmail}{\texttt{\icompContactEmail}}}%
+    }%
+  }{%
+    {\small\color{icompMidGray}\icompThanksFooter}%
+  }%
+}
+
+\newcommand{\agradecimentos}{%
+  \@ifnextchar[\icomp@agradecimentos@opt\icomp@agradecimentos@go
+}
+\def\icomp@agradecimentos@opt[#1]{%
+  \def\icompThanksTitle{#1}%
+  \icompThanksTitleSettrue
+  \icomp@agradecimentos@go
+}
+\def\icomp@agradecimentos@go{%
+  \begin{lrbox}{\icompThanksBox}%
+    \begin{minipage}{0.55\paperwidth}%
+      \raggedright
+      \ICompRenderThanksLogos
+      \ICompRenderThanksFooter
+    \end{minipage}%
+  \end{lrbox}%
+  \begin{frame}[noframenumbering, plain]
+    \begin{tikzpicture}[remember picture, overlay]
+      \fill[icompCanvas]
+        (current page.south west) rectangle (current page.north east);
+
+      \fill[icompTeal]
+        ([xshift=0.68\paperwidth]current page.south west)
+        rectangle (current page.north east);
+
+      \fill[icompLime]
+        ([xshift=0.665\paperwidth]current page.south west)
+        rectangle ([xshift=0.68\paperwidth]current page.north west);
+
+      \node[anchor=west, inner sep=0pt]
+        at ([xshift=0.90cm, yshift=-0.78cm]current page.north west){%
+          \ICompIncludeLogo[0.72cm]{logo_icomp.png}{IComp}%
+        };
+
+      \node[anchor=center, inner sep=0pt]
+        at ([xshift=-0.16\paperwidth]current page.east |- current page.center){%
+          \ICompIncludeLogo[3.6cm]{logo_ufam_white.png}{UFAM}%
+        };
+
+      \node[anchor=west, font=\fontsize{26}{30}\selectfont\bfseries,
+            text=icompTealDark]
+        at ([xshift=1.05cm,yshift=0.35cm]current page.west |- current page.center)
+        {\icompThanksTitle};
+
+      \fill[icompLime, rounded corners=1pt]
+        ([xshift=1.05cm,yshift=-0.28cm]current page.west |- current page.center)
+        rectangle
+        ([xshift=2.30cm,yshift=-0.33cm]current page.west |- current page.center);
+
+      \node[anchor=south west, inner sep=0pt]
+        at ([xshift=1.05cm,yshift=0.55cm]current page.south west)
+        {\usebox{\icompThanksBox}};
+    \end{tikzpicture}%
+    \null
+  \end{frame}%
+}
+
+% Aliases (EN / legados)
+\newcommand{\thankyou}{\agradecimentos}
+\newcommand{\funders}[1]{\apoio{#1}}
+\newcommand{\funderslabel}[1]{\rotuloapoio{#1}}
+\newcommand{\fundersheight}[1]{\alturaapoio{#1}}
+\newcommand{\icompthanksframe}{\agradecimentos}
+\newcommand{\icompthankstitle}[1]{\titulofinal{#1}}
+\newcommand{\icompthankslogos}[1]{\apoio{#1}}
+\newcommand{\icompthankslogoslabel}[1]{\rotuloapoio{#1}}
+\newcommand{\icompthankslogoheight}[1]{\alturaapoio{#1}}
+\newcommand{\ufamthanksframe}{\agradecimentos}
+\newcommand{\ufamthankslogos}[1]{\apoio{#1}}
+\newcommand{\ufamthankstitle}[1]{\titulofinal{#1}}
+\let\imgfunders\imgapoio
+
+% ---------------------------------------------------------------------------
+%  NAVEGAÇÃO / MARGENS
+% ---------------------------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=0.85cm, text margin right=0.85cm}
+\setlength{\parskip}{0.4em}
+
+% ---------------------------------------------------------------------------
+%  DESTAQUES
+% ---------------------------------------------------------------------------
+\newenvironment{destaque}[1][]{%
+  \begin{exampleblock}{#1}
+}{%
+  \end{exampleblock}%
+}
+\newenvironment{alerta}[1][]{%
+  \begin{alertblock}{#1}
+}{%
+  \end{alertblock}%
+}
+\newenvironment{callout}[1][]{\begin{destaque}[#1]}{\end{destaque}}
+\newenvironment{warning}[1][]{\begin{alerta}[#1]}{\end{alerta}}
+\newenvironment{icompbox}[1][]{\begin{destaque}[#1]}{\end{destaque}}
+\newenvironment{icompalert}[1][]{\begin{alerta}[#1]}{\end{alerta}}
+\newenvironment{ufambox}[1][]{\begin{destaque}[#1]}{\end{destaque}}
+\newenvironment{ufamalert}[1][]{\begin{alerta}[#1]}{\end{alerta}}
+
+\newcommand{\hlime}[1]{\textcolor{icompLime}{\textbf{#1}}}
+\newcommand{\hteal}[1]{\textcolor{icompTeal}{\textbf{#1}}}
+\newcommand{\hnavy}[1]{\textcolor{icompTealDark}{\textbf{#1}}}
+\newcommand{\hred}[1]{\textcolor{icompRed}{\textbf{#1}}}
+\newcommand{\hgreen}[1]{\hlime{#1}}
+
+\mode<all>

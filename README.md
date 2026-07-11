@@ -1,113 +1,111 @@
-# Template Beamer IComp / UFAM
+# Template Beamer IComp / UFAM (não oficial)
 
-Tema Beamer para apresentações do **Instituto de Computação (IComp)**,
-PPGI e UFAM. Paleta amostrada do logo IComp (teal + lima), tipografia
-sans-serif e layouts arejados.
+Template Beamer **não oficial** para apresentações do IComp / PPGI / UFAM.
+A identidade visual é inspirada nas cores do logo do IComp (teal + lima) —
+não é um material institucional oficial.
 
-## Arquivos
+**Autor:** [migvanderlei](https://github.com/migvanderlei)  
+**Licença:** [MIT](LICENSE) (código e exemplos) · logos de terceiros: ver abaixo  
+**Site:** [GitHub Pages](https://migvanderlei.github.io/beamer-ufam-icomp-ppgi/)
 
-| Arquivo | Descrição |
-|---|---|
-| `beamerthemeUFAM.sty` | Tema principal (paleta IComp + layouts) |
-| `beamerthemeIComp.sty` | Alias (`\RequirePackage{beamerthemeUFAM}`) |
-| `main.tex` / `main.pdf` | Apresentação de exemplo (Exame de Qualificação) |
-| `example.tex` / `example.pdf` | Exemplo mínimo (capa, blocos, figura, tabela, full-bleed, encerramento) |
-| `logos/logo_icomp.png` | Logo IComp |
-| `logos/logo_ufam.png` | Brasão UFAM (fundos claros) |
-| `logos/logo_ufam_white.png` | Brasão UFAM branco (fundos teal escuros) |
+## Começar rápido
 
-Nos slides de conteúdo, o cabeçalho mantém o **IComp à esquerda** e a
-**UFAM à direita**, com linha teal/lima. A capa usa painel teal com
-autor, orientador(a) e data; a marca institucional fica nos logos.
+1. Abra [`example.tex`](example.tex)
+2. Preencha o bloco **METADADOS** no topo
+3. Edite / remova os slides por seção
+4. Compile com **pdfLaTeX** (duas vezes)
 
-## Como compilar
-
-### Overleaf
-1. Faça upload de todos os arquivos (incluindo `logos/`)
-2. Compile `main.tex` ou `example.tex` (duas vezes)
-
-### Local
 ```bash
 pdflatex example.tex
 pdflatex example.tex
 ```
 
-## Paleta IComp
+[`main.tex`](main.tex) é um exemplo completo (exame de qualificação).
+
+### Overleaf
+
+1. Novo projeto → upload de `beamerthemeIComp.sty`, `example.tex` e a pasta `logos/`
+2. Menu → **Main document:** `example.tex`
+3. Compilador: **pdfLaTeX** (compile 2× para o sumário)
+
+## Arquivos
+
+| Arquivo | Descrição |
+|---|---|
+| `example.tex` | Starter — preencha e apresente |
+| `beamerthemeIComp.sty` | Tema |
+| `main.tex` | Demo completa |
+| `logos/` | Logos IComp/UFAM + exemplos CNPq/CAPES/FAPEAM |
+| `docs/` | Site GitHub Pages |
+| `LICENSE` | MIT (código / exemplos) |
+
+## Idioma (babel)
+
+Textos padrão do slide final (`Obrigado!` / `Thank you!`, `Apoio` / `Support`)
+seguem o **babel**:
+
+```latex
+% Português (padrão do starter)
+\documentclass[aspectratio=169, 11pt, brazil]{beamer}
+\usepackage[brazil]{babel}
+
+% English
+\documentclass[aspectratio=169, 11pt, english]{beamer}
+\usepackage[english]{babel}
+```
+
+Overrides (`\textofinal{...}`, `\rotuloapoio{...}`) têm prioridade.
+
+## Comandos úteis
+
+```latex
+\orientador{Orientador(a): Prof.\ Dr.\ Nome}
+\contato{seu.email@icomp.ufam.edu.br}
+\rodape{IComp · PPGI · UFAM}
+
+\tamanhotitulo{large}
+\divisoresfalse
+
+\hteal{texto}  \hlime{texto}  \hnavy{texto}  \hred{texto}
+
+\begin{destaque}[Título] ... \end{destaque}
+\begin{alerta}[Título] ... \end{alerta}
+
+\begin{frame}[plain]
+  \begin{figuraampla}{Figura N. Legenda}
+    \includegraphics[width=0.9\paperwidth]{figura}
+  \end{figuraampla}
+\end{frame}
+
+\textofinal{Obrigado!}
+\apoio{%
+  \imgapoio[height=0.55cm]{logo_cnpq.png}
+  \imgapoio[height=0.55cm]{logo_capes.png}
+  \imgapoio[height=0.72cm]{logo_fapeam.png}
+}
+\agradecimentos
+```
+
+Rodapé dos slides de conteúdo: `\rodape` + `n/N`. Frames `[plain]` não exibem rodapé.
+
+## Paleta
 
 | Nome | Hex | Uso |
 |---|---|---|
-| `icompTeal` | `#286880` | Estrutura, linhas e painéis |
-| `icompLime` | `#A8C840` | Acentos, itens, destaques |
-| `icompTealDark` | `#1D5366` | Painéis escuros / títulos |
+| `icompTeal` | `#286880` | Estrutura |
+| `icompLime` | `#A8C840` | Acentos |
+| `icompTealDark` | `#1D5366` | Painéis / títulos |
 | `icompRed` | `#C94B4B` | Alertas |
 
-Aliases `ufam*` continuam disponíveis para slides antigos
-(`ufamNavy` → teal escuro, `ufamGreen` → lima, etc.).
+## Logos
 
-## Rodapé e metadados
-
-```latex
-\author[M. Vanderlei]{Miguel Vanderlei de Oliveira}
-\institute[IComp · PPGI · UFAM]{...}   % short form no rodapé; capa usa logos
-\icompadvisor{Orientadora: Profª Drª Nome}
-\icompfooter{IComp · PPGI · UFAM}
-\date{Manaus, Julho de 2026}
-```
-
-Rodapé: **autor** \| unidade + contador **i/N**.
-Na capa: título → subtítulo → autor → orientador(a) → data.
-
-## Comandos
-
-```latex
-\hteal{texto}    % destaque teal
-\hlime{texto}    % destaque lima
-\hnavy{texto}    % destaque teal escuro
-\hred{texto}     % destaque vermelho
-\hgreen{texto}   % alias de \hlime
-
-\begin{icompbox}[Título]
-  Conteúdo em lima
-\end{icompbox}
-
-\begin{icompalert}[Título]
-  Conteúdo em vermelho
-\end{icompalert}
-
-% Slide full-bleed com barra de legenda (frame plain)
-\begin{frame}[plain]
-  \begin{icompfigure}{Figura N. Legenda}
-    \includegraphics[width=0.9\paperwidth]{figura}
-  \end{icompfigure}
-\end{frame}
-
-\icompthanksframe   % slide de encerramento
-```
-
-Aliases legados: `ufambox`, `ufamalert`, `ufamthanksframe`, `\ufamtitlesize`.
-
-## Personalização
-
-```latex
-\usepackage{beamerthemeIComp}   % ou beamerthemeUFAM
-\title{Seu título}
-\subtitle{Tipo de apresentação}
-\author[Iniciais]{Seu Nome}
-\institute[IComp · PPGI · UFAM]{Instituto · Programa · Universidade}
-\icompadvisor{Orientador(a): ...}
-\icompfooter{IComp · PPGI · UFAM}
-\date{Cidade, Mês de Ano}
-```
-
-Títulos longos: `\icomptitlesize{large}` (ou `LARGE`) no preâmbulo.
-
-## Tipografia
-
-Helvetica (`helvet`). Com XeLaTeX/LuaLaTeX, dá para trocar por Inter
-ou Fira Sans via `fontspec`.
+- **IComp / UFAM:** marcas institucionais só para identidade visual deste template não oficial.
+- **CNPq / CAPES / FAPEAM** em `logos/`: exemplos para o slide de agradecimentos.
+  Substitua pelos oficiais e siga os manuais de marca de cada agência.
 
 ## Links
 
+- [Site do template](https://migvanderlei.github.io/beamer-ufam-icomp-ppgi/)
 - [IComp](https://icomp.ufam.edu.br/)
 - [PPGI](https://ppgi.ufam.edu.br/)
 - [UFAM](https://ufam.edu.br/)

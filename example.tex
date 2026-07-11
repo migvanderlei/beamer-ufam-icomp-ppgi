@@ -1,57 +1,127 @@
-% =============================================================================
-%  example.tex — Exemplo mínimo
-%  Template Beamer IComp / PPGI / UFAM
-%  Compile: pdflatex example.tex
-% =============================================================================
+% ============================================================
+%  Template Beamer IComp / UFAM (não oficial)
+%  Instituto de Computação — IComp · PPGI · UFAM
+%  Autor: migvanderlei (https://github.com/migvanderlei)
+%
+%  Idioma: troque brazil → english no documentclass e no babel
+%  Compile: pdflatex (duas vezes) ou Overleaf (pdfLaTeX)
+% ============================================================
+
 \documentclass[aspectratio=169, 11pt, brazil]{beamer}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
-\usepackage{beamerthemeIComp}
-\usepackage{booktabs, colortbl}
+\usepackage{beamerthemeIComp}   % tema (mesma pasta / Overleaf)
+
+% ---- Pacotes extras (opcional) ----
+\usepackage{booktabs}
+\usepackage{amsmath, amssymb}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, positioning}
 
-\title{Template Beamer IComp}
-\subtitle{Apresentações acadêmicas do Instituto de Computação}
-\author[M. Vanderlei]{Miguel Vanderlei de Oliveira}
+% ============================================================
+%  METADADOS — preencha aqui
+% ============================================================
+\title{Título da Apresentação}
+
+\subtitle{Tipo de apresentação — ex.: Exame de Qualificação / Seminário}
+
+\author[Iniciais]{Seu Nome Completo}
+
 \institute[IComp · PPGI · UFAM]{%
   Instituto de Computação — IComp\\
   Programa de Pós-Graduação em Informática — PPGI · UFAM
 }
-\icompadvisor{Orientador: Prof.\ Dr. Nome do Orientador}
-\icompfooter{IComp · PPGI · UFAM}
-\date{Manaus, Julho de 2026}
 
+\orientador{Orientador(a): Prof.\ Dr.\ Nome do Orientador}
+\contato{seu.email@icomp.ufam.edu.br}
+\rodape{IComp · PPGI · UFAM}
+
+\date{Manaus, Mês de 2026}
+
+% Títulos muito longos (opcional):
+% \tamanhotitulo{large}
+
+% Desativar slides divisores de seção (opcional):
+% \divisoresfalse
+
+% ============================================================
 \begin{document}
+% ============================================================
 
+% ------------------------------------------------------------
+%  SLIDE 1 — Capa
+% ------------------------------------------------------------
 \begin{frame}[noframenumbering, plain]
   \titlepage
 \end{frame}
 
-\begin{frame}{Elementos do template}
+% ------------------------------------------------------------
+%  SLIDE 2 — Sumário / Outline
+% ------------------------------------------------------------
+\begin{frame}{Sumário}
+  \tableofcontents
+\end{frame}
+
+% ------------------------------------------------------------
+\section{Introdução}
+% ------------------------------------------------------------
+
+\begin{frame}{Introdução}
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Bloco padrão}
-        Definição ou contexto neutro.
+    \begin{column}{0.52\textwidth}
+      \begin{block}{Motivação}
+        \begin{itemize}
+          \item Contexto e relevância do problema
+          \item Desafio principal abordado
+          \item Por que este trabalho importa
+        \end{itemize}
       \end{block}
-      \begin{exampleblock}{Exemplo}
-        Resultado ou destaque positivo.
-      \end{exampleblock}
     \end{column}
-    \begin{column}{0.46\textwidth}
-      \textbf{Paleta IComp}
-      \begin{itemize}
-        \item \hteal{Teal} \texttt{\#286880}
-        \item \hlime{Lima} \texttt{\#A8C840}
-        \item \hnavy{Navy} \texttt{\#163A48}
-      \end{itemize}
+    \begin{column}{0.44\textwidth}
+      \begin{destaque}{Contribuição}
+        \begin{itemize}
+          \item Ideia central em 1--2 frases
+          \item Resultado esperado / hipótese
+        \end{itemize}
+      \end{destaque}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── Figura + legenda ────────────────────────────────────────────────────────
+% ------------------------------------------------------------
+\section{Objetivos}
+% ------------------------------------------------------------
+
+\begin{frame}{Objetivos}
+  \begin{itemize}
+    \item Objetivo geral
+    \item Objetivo específico 1
+    \item Objetivo específico 2
+  \end{itemize}
+\end{frame}
+
+% ------------------------------------------------------------
+\section{Método}
+% ------------------------------------------------------------
+
+\begin{frame}{Método}
+  \begin{itemize}
+    \item Visão geral da abordagem
+    \item Etapas principais do pipeline
+    \item Premissas e limitações
+  \end{itemize}
+
+  \vspace{0.8em}
+  \centering
+  {\footnotesize\textcolor{icompMidGray}{%
+    (Opcional) Insira aqui um diagrama TikZ ou figura.}}
+\end{frame}
+
+% ------------------------------------------------------------
+%  SLIDE — Figura com legenda (exemplo)
+% ------------------------------------------------------------
 \begin{frame}{Figura com legenda}
   \centering
   \begin{tikzpicture}[
@@ -70,58 +140,107 @@
   \vspace{0.7em}
   {\footnotesize\textcolor{icompDarkGray}{%
     \textbf{Figura 1.} Pipeline ilustrativo: entrada, modelo e saída.}}
-
-  \vspace{1.1em}
-  \begin{minipage}{0.88\textwidth}
-    \raggedright
-    \footnotesize\textcolor{icompMidGray}{%
-      Diagrama TikZ no corpo do slide, com legenda logo abaixo.
-      Em Beamer, numere manualmente com \texttt{\textbackslash textbf\{Figura~N.\}}.}
-  \end{minipage}
 \end{frame}
 
-% ── Tabela ──────────────────────────────────────────────────────────────────
+% ------------------------------------------------------------
+\section{Resultados}
+% ------------------------------------------------------------
+
+\begin{frame}{Resultados}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{beamercolorbox}[wd=\textwidth, rounded=true, sep=8pt, center]{block body}
+        \vspace{1.4cm}
+        {\small\textit{Inserir figura / gráfico aqui}}
+        \vspace{1.4cm}
+      \end{beamercolorbox}
+      \vspace{0.35em}
+      {\footnotesize\textit{Fig.~1: Legenda da figura.}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Observações}
+        \begin{itemize}
+          \item Achado principal
+          \item Comparação com baseline
+          \item Interpretação breve
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \begin{frame}{Tabela de resultados}
   \centering
   \small
   \renewcommand{\arraystretch}{1.2}
   \begin{tabular}{@{}lcc@{}}
     \toprule
-    \textbf{Método} & \textbf{Acurácia (\%)} & \textbf{F1} \\
+    \textbf{Método} & \textbf{Métrica} & \textbf{Valor} \\
     \midrule
-    Baseline   & 72,4 & 0,71 \\
-    Variante A & 78,1 & 0,76 \\
-    Variante B & 81,3 & 0,80 \\
-    Proposto   & 84,7 & 0,83 \\
+    Baseline & --- & --- \\
+    Proposto & --- & --- \\
     \bottomrule
   \end{tabular}
 
   \vspace{0.75em}
   {\footnotesize\textcolor{icompDarkGray}{%
-    \textbf{Tabela 1.} Comparação no conjunto de validação (valores fictícios).}}
+    \textbf{Tabela 1.} Substitua pelos seus números.}}
 \end{frame}
 
-% ── Figura full-bleed (barra de legenda) ────────────────────────────────────
+% ------------------------------------------------------------
+%  SLIDE — Figura ampla (frame plain = mais área útil)
+% ------------------------------------------------------------
 \begin{frame}[plain]
-  \begin{icompfigure}{Figura 2. Exemplo de slide full-bleed com barra de legenda.}
-    \begin{tikzpicture}[x=1.05cm, y=0.72cm]
-      \draw[icompLine, line width=0.5pt] (0,0) grid[step=1] (11,6);
-      \draw[icompTeal, line width=1.6pt]
-        plot[smooth] coordinates
-          {(0,1.2) (1.4,2.1) (2.8,1.7) (4.2,3.3) (5.6,3.0)
-           (7.0,4.6) (8.4,4.2) (9.8,5.4) (11,5.1)};
-      \draw[icompLime, line width=1.6pt]
-        plot[smooth] coordinates
-          {(0,0.6) (1.4,1.0) (2.8,1.9) (4.2,2.2) (5.6,3.6)
-           (7.0,3.9) (8.4,4.9) (9.8,4.8) (11,5.8)};
-      \node[anchor=west, font=\footnotesize\bfseries, text=icompTeal]
-        at (0.2,5.55) {Teal};
-      \node[anchor=west, font=\footnotesize\bfseries, text=icompLimeDark]
-        at (1.7,5.55) {Lima};
-    \end{tikzpicture}
-  \end{icompfigure}
+  \begin{figuraampla}{Figura 2. Substitua pelo seu plot ou \texttt{\textbackslash includegraphics}.}
+    \begin{beamercolorbox}[wd=0.92\textwidth, rounded=true, sep=12pt, center]{block body}
+      \vspace{1.8cm}
+      {\small\textit{Inserir figura aqui}}
+      \vspace{1.8cm}
+    \end{beamercolorbox}
+  \end{figuraampla}
 \end{frame}
 
-\icompthanksframe
+% ------------------------------------------------------------
+\section{Conclusões}
+% ------------------------------------------------------------
 
+\begin{frame}{Conclusões}
+  \begin{itemize}
+    \item \textbf{Conclusão 1:} resultado principal
+    \item \textbf{Conclusão 2:} implicação / contribuição
+  \end{itemize}
+
+  \vspace{1em}
+  \begin{alerta}{Próximos passos}
+    Descreva brevemente o trabalho futuro.
+  \end{alerta}
+\end{frame}
+
+% ------------------------------------------------------------
+\section*{Referências}
+% ------------------------------------------------------------
+\begin{frame}[allowframebreaks]{Referências}
+  \begin{thebibliography}{9}
+    \bibitem{exemplo}
+      Autor~A.
+      \newblock Título do trabalho.
+      \newblock \emph{Conferência / Periódico}, 2026.
+  \end{thebibliography}
+\end{frame}
+
+% ------------------------------------------------------------
+%  SLIDE FINAL — Agradecimentos
+% ------------------------------------------------------------
+\textofinal{Obrigado!}
+% \rodapefinal{Seu Nome\\seu.email@icomp.ufam.edu.br}
+\apoio{%
+  \imgapoio[height=0.55cm]{logo_cnpq.png}
+  \imgapoio[height=0.55cm]{logo_capes.png}
+  \imgapoio[height=0.72cm]{logo_fapeam.png}
+}
+\agradecimentos
+
+% ============================================================
 \end{document}
+% ============================================================

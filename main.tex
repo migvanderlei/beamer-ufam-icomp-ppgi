@@ -1,7 +1,6 @@
 % =============================================================================
-%  main.tex — Apresentação IComp / PPGI / UFAM
-%  Use: pdflatex main.tex (2x) no Overleaf ou localmente
-%  Logos: logos/logo_icomp.png, logos/logo_ufam.png
+%  main.tex — Exemplo de apresentação (template IComp não oficial)
+%  Compile: pdflatex main.tex (2x)
 % =============================================================================
 \documentclass[aspectratio=169, 10pt, brazil]{beamer}
 
@@ -26,8 +25,9 @@
   Instituto de Computação — IComp\\
   Programa de Pós-Graduação em Informática — PPGI · UFAM
 }
-\icompadvisor{Orientadora: Prof.\textsuperscript{a} Dr.\textsuperscript{a} Eulanda Miranda dos Santos}
-\icompfooter{IComp · PPGI · UFAM}
+\orientador{Orientadora: Prof.\textsuperscript{a} Dr.\textsuperscript{a} Eulanda Miranda dos Santos}
+\contato{miguel.vanderlei@icomp.ufam.edu.br}
+\rodape{IComp · PPGI · UFAM}
 \date{Manaus, Julho de 2026}
 
 % ---------------------------------------------------------------------------
@@ -388,6 +388,12 @@
 \end{frame}
 
 % ── Slide Final ──────────────────────────────────────────────────────────────
-\ufamthanksframe
+\textofinal{Obrigado!}
+\apoio{%
+  \imgapoio[height=0.55cm]{logo_cnpq.png}
+  \imgapoio[height=0.55cm]{logo_capes.png}
+  \imgapoio[height=0.72cm]{logo_fapeam.png}
+}
+\agradecimentos
 
 \end{document}
